@@ -109,6 +109,8 @@
     padding:8px 13px; backdrop-filter:blur(6px);
     transition:background-color .2s ease, border-color .2s ease;
   }
+  /* el que entra por dentro se marca: es el que hay que tocar para ensenarlo */
+  .boton .abrir.dentro{background:var(--sol); border-color:var(--sol)}
   .boton:hover img, .boton:focus-visible img{transform:scale(1.035)}
   .boton:hover .abrir, .boton:focus-visible .abrir{background:var(--sol); border-color:var(--sol)}
   .boton .dir{
@@ -230,28 +232,40 @@ let DATOS = null, INTERNO = null;
 /* ---------- cargar ---------- */
 /* Sin contrasena: se ve todo de una. Lo privado lo da el enlace. */
 fetch('centro-datos.json?v=' + Date.now()).then(r => r.json()).then(d => {
-  DATOS = d; INTERNO = d;
+  DATOS = d;
   pintarMostrador();
-  pintarInterno();
-  if (location.hash === '#interno') habitacion('interno');
+  /* La copia publica solo trae el escaparate. Si no vienen las fichas, no hay
+     trastienda que pintar ni boton que ensenar. */
+  if (Array.isArray(d.proyectos)) {
+    INTERNO = d;
+    pintarInterno();
+    if (location.hash === '#interno') habitacion('interno');
+  } else {
+    $('#cambiar').hidden = true;
+  }
 }).catch(() => {
   $('#obra').innerHTML = '<li style="padding:24px 0;color:var(--suave)">No se han podido cargar los datos. Recarga la página.</li>';
 });
 
 /* ---------- mostrador ---------- */
 function pintarMostrador(){
-  $('#obra').innerHTML = DATOS.publico.map((p, i) => `
+  /* Si hay puerta de demostracion, el boton entra por ahi: para ensenarselo a
+     alguien no se puede acabar en una pantalla de contrasena. */
+  $('#obra').innerHTML = DATOS.publico.map((p, i) => {
+    const destino = p.demo || p.url;
+    return `
     <li class="${i === 0 ? 'grande' : ''}">
-      <a class="boton" href="${esc(p.url)}" target="_blank" rel="noopener">
+      <a class="boton" href="${esc(destino)}" target="_blank" rel="noopener">
         ${p.foto ? `<img src="${esc(p.foto)}" alt="Pantalla de ${esc(p.nombre)}" loading="eager" decoding="async">` : ''}
-        <span class="abrir">Abrir</span>
+        <span class="abrir${p.demo ? ' dentro' : ''}">${p.demo ? 'Entrar' : 'Abrir'}</span>
         <span class="texto">
           <span class="nom">${esc(p.nombre)}</span>
-          <span class="dic">${esc(p.texto)}</span>
-          <span class="dir">${esc(corto(p.url))}</span>
+          <span class="dic">${esc(p.demo_que || p.texto)}</span>
+          <span class="dir">${p.demo ? 'entra sin contraseña' : esc(corto(p.url))}</span>
         </span>
       </a>
-    </li>`).join('');
+    </li>`;
+  }).join('');
 }
 
 /* ---------- cambiar de habitación ---------- */

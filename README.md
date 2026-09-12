@@ -1,17 +1,15 @@
-# Centro de trabajo de solers
+# Escaparate de solers
 
-Todo lo que tenemos, en una pantalla. Dos habitaciones, sin contraseña:
+El trabajo que se puede enseñar: programas y webs funcionando hoy, con gente
+usándolos. Se abre en **https://solers-es.github.io/centro/**.
 
-- **Escaparate** — el trabajo que se le puede enseñar a un cliente, cada uno con
-  la captura de su propia aplicación de fondo.
-- **Trastienda** — las 38 fichas: qué es cada cosa, dónde se abre, qué
-  repositorio la guarda, cuándo se tocó y qué está roto.
+Esto es **solo el escaparate**. Lo interno —qué está roto, qué repositorio
+guarda cada cosa, el informe de estado— no vive aquí: este repositorio es
+público.
 
-También está aquí el informe de estado: [`informe.html`](informe.html).
+## No se edita a mano
 
-## Esto no se edita a mano
-
-Se genera en **`solers-es/solers`** y se copia aquí. Para actualizarlo, allí:
+Se genera en `solers-es/solers`:
 
 ```bash
 node centro-generar.mjs     # vuelve a medir repos, direcciones y estado
@@ -19,4 +17,4 @@ python centro-fotos.py      # rehace las capturas
 python centro-prueba.py     # comprueba que no se ha roto nada
 ```
 
-Y luego se copian `centro.html` → `index.html`, `centro-datos.json` y `fotos/`.
+Y se sube desde ahí la carpeta `publico/`.
