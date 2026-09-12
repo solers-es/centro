@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-12T18:36:03.155Z",
+ "generado": "2026-09-12T18:43:52.342Z",
  "publico": [
   {
    "id": "gestoros",
@@ -20,8 +20,8 @@
    "tipo": "producto",
    "dominio_propio": false,
    "foto": "fotos/brasa.webp",
-   "demo": null,
-   "demo_que": null
+   "demo": "https://universo-bistro.vercel.app/demo",
+   "demo_que": "El TPV por dentro: mesas, comandas, cocina y caja"
   },
   {
    "id": "ruta",
@@ -75,8 +75,8 @@
    "tipo": "cliente",
    "dominio_propio": true,
    "foto": "fotos/cgb.webp",
-   "demo": "https://multiservicescgb.com/chauffeur?t=07c4bb63561a30aa3c38e05d",
-   "demo_que": "La app del repartidor: entregas y GPS en directo"
+   "demo": "https://multiservicescgb.com/demo",
+   "demo_que": "El panel de la empresa: mudanzas, camiones en directo y mensajes"
   },
   {
    "id": "nailsbyally",
