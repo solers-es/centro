@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-12T18:43:52.342Z",
+ "generado": "2026-09-12T18:48:04.850Z",
  "publico": [
   {
    "id": "gestoros",
@@ -22,17 +22,6 @@
    "foto": "fotos/brasa.webp",
    "demo": "https://universo-bistro.vercel.app/demo",
    "demo_que": "El TPV por dentro: mesas, comandas, cocina y caja"
-  },
-  {
-   "id": "ruta",
-   "nombre": "RUTA",
-   "texto": "Reparto y distribución: rutas, albaranes y cobros desde el móvil del repartidor.",
-   "url": "https://ruta-sigma.vercel.app",
-   "tipo": "producto",
-   "dominio_propio": false,
-   "foto": "fotos/ruta.webp",
-   "demo": "https://ruta-sigma.vercel.app/pedir/c4db17c1-b0e2-4dc4-88b5-619cf0eba8a9",
-   "demo_que": "Lo que ve el bar para pedir hielo: se abre en el movil, sin nada"
   },
   {
    "id": "el-paraiso",
