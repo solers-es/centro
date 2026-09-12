@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qué está terminado y qué falta</title>
+<meta name="description" content="Estado medido de todo lo de solers, 12 de septiembre de 2026.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sol:#D4622A; --tinta:#14120F;
+    --fondo:#F2EDE3; --sobre:#EAE3D5; --texto:#14120F; --suave:#6B6257; --raya:#DAD1C0;
+    --verde:#4E7A3C; --ambar:#B07A1E; --rojo:#A8412F;
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--fondo); color:var(--texto);
+    font-family:var(--sans); font-size:16px; line-height:1.55;
+  }
+  .env{max-width:780px; margin:0 auto; padding-inline:20px}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+
+  /* portada */
+  .cab{padding-block:56px 34px; border-bottom:2px solid var(--tinta)}
+  .cab .sello{display:flex; align-items:center; gap:9px; margin-bottom:26px}
+  .cab .sello span{font-family:var(--serif); font-size:19px}
+  h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(34px,7.2vw,52px);
+    line-height:1.02; letter-spacing:-.025em; margin:0; text-wrap:balance;
+  }
+  .cab .bajo{margin:16px 0 0; font-size:17px; color:var(--suave); max-width:52ch}
+  .cab .fecha{margin-top:20px; font:400 13px var(--mono); color:var(--suave)}
+
+  h2{
+    font-family:var(--serif); font-weight:600; font-size:27px; letter-spacing:-.015em;
+    margin:56px 0 4px; padding-top:26px; border-top:1px solid var(--raya); text-wrap:balance;
+  }
+  h2 + .intro{margin:0 0 22px; color:var(--suave); font-size:15px; max-width:58ch}
+  h3{font-family:var(--serif); font-weight:600; font-size:21px; margin:34px 0 2px; letter-spacing:-.01em}
+  p{max-width:68ch}
+
+  /* tabla resumen */
+  .tabla{width:100%; border-collapse:collapse; margin:8px 0 0; font-size:14.5px}
+  .tabla th{
+    text-align:left; font-weight:600; font-size:12.5px; color:var(--suave);
+    padding:0 10px 7px 0; border-bottom:1px solid var(--raya);
+  }
+  .tabla td{padding:11px 10px 11px 0; border-bottom:1px solid var(--raya); vertical-align:top}
+  .tabla td:first-child{font-weight:600; white-space:nowrap}
+  .tabla .bloquea{color:var(--suave)}
+  .envuelve{overflow-x:auto; margin-inline:-20px; padding-inline:20px}
+
+  .chip{
+    display:inline-block; font:500 12px/1 var(--sans); white-space:nowrap;
+    border-radius:99px; padding:5px 10px; border:1px solid;
+  }
+  .chip.va{color:var(--verde); border-color:#A9C09A; background:#E7EFE0}
+  .chip.casi{color:var(--ambar); border-color:#DCC08A; background:#F6EDD9}
+  .chip.medias{color:var(--sol); border-color:#E4B79C; background:#F8E7DC}
+  .chip.parado{color:var(--rojo); border-color:#D9A99D; background:#F7E2DC}
+
+  /* fichas */
+  .ficha{margin-top:12px}
+  .par{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:16px}
+  .caja{background:var(--sobre); border-radius:8px; padding:15px 17px}
+  .caja h4{
+    margin:0 0 9px; font:600 12.5px var(--sans); color:var(--suave);
+  }
+  .caja ul{margin:0; padding-left:17px}
+  .caja li{margin-bottom:7px; font-size:14.5px}
+  .caja li:last-child{margin-bottom:0}
+  .t{font:500 11.5px var(--mono); color:var(--suave)}
+  .t.poco{color:var(--verde)} .t.medio{color:var(--ambar)} .t.mucho{color:var(--rojo)}
+
+  .dato{font:400 13.5px var(--mono); color:var(--suave)}
+  code{font:400 .92em var(--mono); background:var(--sobre); padding:1px 5px; border-radius:3px}
+
+  .alto{
+    border-left:3px solid var(--sol); padding:2px 0 2px 15px; margin:20px 0;
+  }
+  .alto strong{display:block; font-family:var(--serif); font-size:18px; margin-bottom:3px}
+  .alto.rojo{border-color:var(--rojo)}
+
+  ul.limpia{list-style:none; padding:0; margin:14px 0 0}
+  ul.limpia li{
+    padding:10px 0; border-top:1px solid var(--raya); font-size:15px; max-width:68ch;
+  }
+  ul.limpia li b{font-weight:600}
+
+  .pie{margin-top:60px; padding-block:26px 70px; border-top:2px solid var(--tinta); font-size:14px; color:var(--suave)}
+
+  @media (max-width:620px){
+    .par{grid-template-columns:1fr}
+    .cab{padding-block:36px 26px}
+  }
+</style>
+</head>
+<body>
+
+<header class="env cab">
+  <div class="sello">
+    <svg width="21" height="21" viewBox="0 0 22 22" aria-hidden="true">
+      <path d="M11 2.6a8.4 8.4 0 1 0 7.3 4.2" fill="none" stroke="#D4622A" stroke-width="2.6" stroke-linecap="round"/>
+    </svg>
+    <span>solers</span>
+  </div>
+  <h1>Qué está terminado y qué falta</h1>
+  <p class="bajo">Todo lo nuestro, medido repo por repo: pruebas ejecutadas, migraciones contadas y direcciones llamadas de verdad. Donde un documento decía una cosa y el código otra, manda el código.</p>
+  <p class="fecha">12 de septiembre de 2026</p>
+</header>
+
+<main class="env">
+
+<h2>En una tabla</h2>
+<p class="intro">«Lo que bloquea» es la <em>única</em> cosa que hay delante. Resuelta esa, el proyecto avanza.</p>
+<div class="envuelve">
+<table class="tabla">
+  <thead><tr><th>Qué</th><th>Cómo está</th><th>Lo que bloquea</th></tr></thead>
+  <tbody>
+    <tr><td>Brasa</td><td><span class="chip va">Funciona y se usa</span></td><td class="bloquea">Contratar Verifacti y firmar la declaración del SIF. Lo fiscal está montado y apagado.</td></tr>
+    <tr><td>GestorOS</td><td><span class="chip casi">Le falta poco</span></td><td class="bloquea">Separar el sistema «02» del autónomo, y dar de alta Stripe para poder cobrar.</td></tr>
+    <tr><td>El Paraíso</td><td><span class="chip va">Funciona y se usa</span></td><td class="bloquea">Encender los pedidos por mesa. Llevan apagados desde el 2 de agosto.</td></tr>
+    <tr><td>RUTA</td><td><span class="chip casi">Le falta poco</span></td><td class="bloquea">Fusionar las dos ramas y sentar a Rubén delante. Hoy no lo usa nadie.</td></tr>
+    <tr><td>El Sazón</td><td><span class="chip casi">Le falta poco</span></td><td class="bloquea">Darle almacén propio: hoy escribiría en el repo personal de Stalin.</td></tr>
+    <tr><td>Préstamos</td><td><span class="chip parado">Sin base de datos</span></td><td class="bloquea">Su proyecto de Supabase se borró el 28 de agosto. La web es una fachada.</td></tr>
+    <tr><td>Publicador IG</td><td><span class="chip medias">Escrito, sin estrenar</span></td><td class="bloquea">Una cuenta de Instagram Business y la app de Meta. Nunca se ha ejecutado.</td></tr>
+    <tr><td>Motora Exprés</td><td><span class="chip parado">Da 404</span></td><td class="bloquea">No está roto: le falta portada, variables y base. Y no hay cliente pagando.</td></tr>
+    <tr><td>Jurídico RD</td><td><span class="chip medias">A medias</span></td><td class="bloquea">Su Código Penal caducó en agosto y apunta a un modelo que no existe.</td></tr>
+    <tr><td>Cocina</td><td><span class="chip va">Hecho</span></td><td class="bloquea">No es un producto suelto: es un módulo de El Paraíso. Absorber en Brasa.</td></tr>
+    <tr><td>CRM</td><td><span class="chip medias">Maqueta</span></td><td class="bloquea">No guarda nada y está abierto en internet. Es interno: no vende.</td></tr>
+    <tr><td>Webs de clientes</td><td><span class="chip va">Entregadas</span></td><td class="bloquea">Nada. Nails By Ally, LZR y Lacados llevan meses quietas y con su dominio.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="alto">
+  <strong>Lo más cerca de cobrar no es lo más grande</strong>
+  El Sazón de Quisqueya es el único que reúne las cuatro cosas: cliente con nombre, desplegado <em>con las variables puestas</em>, documento de entrega escrito y trabajo reciente. Lo que le falta son horas de limpieza, no producto.
+</div>
+
+<h2>GestorOS</h2>
+<p class="intro">La apuesta grande. Tiene dos caras: la gestoría (contra a3) y el autónomo. Están en el mismo código pero no en el mismo punto.</p>
+
+<p class="dato">2.923 pruebas · 0 fallos · 153 migraciones · 141 pantallas, 66 contra la base</p>
+
+<div class="par">
+  <div class="caja">
+    <h4>Terminado</h4>
+    <ul>
+      <li><b>VeriFactu de punta a punta</b>, con una factura real aceptada por la AEAT — CSV <code>A-GF3L4M4NWU7N89</code>. Huella encadenada, QR y XML validado.</li>
+      <li>La suite entera en verde y los tipos limpios.</li>
+      <li>El puente con la gestoría y la pantalla de precios (29 / 49 / 99 €).</li>
+    </ul>
+  </div>
+  <div class="caja">
+    <h4>Falta, de código</h4>
+    <ul>
+      <li>Separar el sistema informático del autónomo. <span class="t poco">poco</span></li>
+      <li>Cablear Facturae y su firma a alguna pantalla: la librería existe y tiene pruebas, pero no la usa nadie. <span class="t medio">medio</span></li>
+      <li>Fusionar la rama de departamentos, 15 commits. <span class="t medio">medio</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="alto rojo">
+  <strong>Esto hay que mirarlo antes de vender al autónomo</strong>
+  El producto del autónomo se declara como sistema «02», pero <code>src/lib/fabricante.ts</code> sigue mandando «GestorOS»/«01» en cada registro. Si emitiera hoy, estaría declarándose como otro sistema. El propio fichero avisa: artículo 201 bis, <b>150.000 € por ejercicio y sistema</b>. Es poco código, pero es la puerta.
+</div>
+
+<h3>La cara de pymes y autónomos</h3>
+<p>No es <code>/pro</code>, como creíamos. <code>/pro</code> es la vista densa <em>de la gestoría</em>. Lo de pymes y autónomos es <code>/panel</code> (77 pantallas) filtrado por perfil, más un producto llamado <b>Talonario</b> que se sirve por dominio propio.</p>
+<ul class="limpia">
+  <li><b>Ya funciona:</b> emitir factura, VeriFactu, envío a la AEAT, el puente con la gestoría y el registro con precios.</li>
+  <li><b>No funciona todavía:</b> cobrar — el código de Stripe está escrito, faltan las claves —, firmar Facturae, y emitir como autónomo por lo del sistema «02».</li>
+</ul>
+<p class="dato">De los 22 puntos que faltaban frente a a3 no queda ni uno de código: 15 son trámites, 5 no aplican y 2 son datos que teclea una persona.</p>
+
+<h2>Brasa</h2>
+<p class="intro">Lo más terminado que tenemos, y lo único que está funcionando de verdad con gente delante todos los días.</p>
+
+<p class="dato">19 pruebas puras en verde · 67 migraciones, ninguna pendiente · escritorio 0.1.8, publicado hoy</p>
+
+<div class="par">
+  <div class="caja">
+    <h4>Terminado</h4>
+    <ul>
+      <li>Sala, comanda, cocina y caja completas: cobro, cierre Z, Z históricas e informe mensual.</li>
+      <li>Impresión con puente propio, feed a la gestoría, carta con QR, fidelidad, reseñas y reservas.</li>
+      <li>Administración entera y multi-negocio.</li>
+      <li><b>La app de escritorio se actualiza sola</b> desde el 8 de septiembre.</li>
+    </ul>
+  </div>
+  <div class="caja">
+    <h4>Falta, de código</h4>
+    <ul>
+      <li>El local-first de verdad. Hoy el PC sirve la web pero los datos siguen viniendo de la nube; no hay base local en ninguna parte. <span class="t mucho">mucho</span></li>
+      <li>Cerrar el formato del número de factura antes del primer envío real. <span class="t poco">poco</span></li>
+      <li>Decidir qué se hace con las ramas colgando, una de ellas gorda y divergente. <span class="t medio">medio</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="alto">
+  <strong>Lo fiscal no está hecho: está preparado y apagado</strong>
+  Brasa numera sin huecos y encadena huella en el servidor, eso sí funciona. Pero no firma ni envía a la AEAT por sí misma: delega en Verifacti, y ahí <b>no hay ni un registro remitido</b> ni está activo en ningún bar. La huella que constaría en Hacienda sería la de Verifacti, no la nuestra.
+</div>
+
+<p>Y el escalón que falta es justo el que arregla el problema real del bar: el fallo de impresión nunca fue el código ni la impresora, era el internet del local. Mientras los datos vengan de la nube, eso vuelve.</p>
+
+<h2>El Paraíso</h2>
+<p class="intro">Nuestro laboratorio: el bar entero en una web. Lo que aguanta aquí se puede vender fuera.</p>
+
+<p class="dato">20.844 líneas medidas · carta en 5 idiomas viva · 14 reservas y 15 socios reales · 18 pedidos por QR, 12 confirmados por el TPV</p>
+
+<div class="par">
+  <div class="caja">
+    <h4>Terminado</h4>
+    <ul>
+      <li>Carta digital en cinco idiomas, sirviendo de verdad.</li>
+      <li>Reservas, club de clientes y cuadrante de turnos, con datos reales y recientes.</li>
+      <li><b>El puente de pedidos QR hacia Brasa está construido y probado</b> por los dos lados.</li>
+      <li>Contabilidad y escandallos.</li>
+    </ul>
+  </div>
+  <div class="caja">
+    <h4>Falta, de código</h4>
+    <ul>
+      <li>Encender los pedidos por mesa: producción los tiene apagados. <span class="t poco">poco</span></li>
+      <li>Arreglar que los QR impresos no sienten al cliente en su mesa. Es una línea. <span class="t poco">poco</span></li>
+      <li>Subir la contabilidad a la nube: hoy vive en el navegador de Stalin. <span class="t mucho">mucho</span></li>
+      <li>No hay ni una prueba automática, y esto está en producción. <span class="t mucho">mucho</span></li>
+      <li>El fichaje por GPS está muerto: radio de 4 metros y cinco fichajes en total, todos de julio. <span class="t medio">medio</span></li>
+      <li>Las nóminas no existen como módulo: hay 6 empleados y 0 documentos. <span class="t medio">medio</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="alto rojo">
+  <strong>Se pagó una imprenta para algo que está apagado</strong>
+  Los carteles de QR de mesa están impresos y pagados. La función lleva seis semanas desactivada en producción y, aunque se encendiera, los carteles no sientan al cliente en su mesa por un fallo de una línea. Son dos arreglos pequeños para recuperar algo ya pagado.
+</div>
+
+<p>Los cuatro repos viejos —<code>paraiso-carta</code>, <code>-contabilidad</code>, <code>-equipo</code> y <code>-whitelabel</code>— <b>están absorbidos y se pueden archivar</b>, rescatando antes seis ficheros que solo existen en <code>paraiso-carta</code>: las instrucciones de mesa, el generador de QR y los carteles.</p>
+
+<h2>RUTA</h2>
+<p class="intro">El programa de reparto de Rubén. Está más terminado de lo que parece y, a la vez, más parado.</p>
+
+<p class="dato">19 tablas · 30 migraciones · 127 pruebas en verde · cuadre contra la base real 14/14</p>
+
+<div class="par">
+  <div class="caja">
+    <h4>Terminado</h4>
+    <ul>
+      <li>El ciclo completo: clientes por zonas, stock de cámara, rutas, albaranes firmados, cobros con antigüedad de deuda y cuadre de caja.</li>
+      <li>La app del repartidor, con cola para cuando no hay cobertura.</li>
+      <li>El QR del cliente.</li>
+    </ul>
+  </div>
+  <div class="caja">
+    <h4>Falta, de código</h4>
+    <ul>
+      <li>Fusionar la app del bar: tres semanas de trabajo en una rama, con la segunda llave del cliente. <span class="t mucho">mucho</span></li>
+      <li>Renumerar: las dos ramas traen una migración con el mismo número. <span class="t poco">poco</span></li>
+      <li>Fusionar el alta desde la calle. <span class="t medio">medio</span></li>
+      <li>Enchufar un WhatsApp de verdad: hoy va contra un simulador. <span class="t medio">medio</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="alto rojo">
+  <strong>Rubén no lo está usando</strong>
+  Dentro solo hay dos empresas inventadas, el último albarán es del 14 de agosto y no hay ni un aviso. No hay rastro de implantación. El programa está listo y esperando a que alguien se siente delante.
+</div>
+
+<p>La raya de VeriFactu está donde acordamos: exporta un CSV del mes y no emite factura, ni numera, ni encadena huella, ni envía a la AEAT. Y dentro de ese export no hay casilla de «esto no lo saques» ni totales alternativos.</p>
+
+<h2>Los que están parados</h2>
+<p class="intro">Ninguno de estos tiene pruebas ni nadie encima. Lo que importa de cada uno es si merece la pena volver.</p>
+
+<ul class="limpia">
+  <li><b>El Sazón de Quisqueya</b> — casi entregable, y el más cerca de cobrar. Trae hasta el documento para el cliente. <em>Pero escribe sus datos en el repositorio personal de Stalin, con prefijo <code>paraiso:</code></em>: los empleados y fichajes del cliente nuevo caerían en el almacén de otro cliente. Hay que darle almacén propio antes de que entre nadie. <span class="t poco">poco</span></li>
+  <li><b>Préstamos</b> — funciona y sus datos están cuadrados al céntimo, pero su proyecto de Supabase se borró el 28 de agosto para dejar de pagarlo: hoy es una fachada. Los volcados están guardados. Resucitarlo cuesta unos 7,75 $ al mes, y hoy no le cobra a nadie. <span class="t poco">poco</span></li>
+  <li><b>Publicador IG</b> — no es software, es una receta: dos automatizaciones, el prompt y un manual de puesta en marcha con los costes cerrados (~12 € al mes). Nunca se ha ejecutado. Falta una cuenta de Instagram Business y la app de Meta, que marca el ritmo. <span class="t poco">poco</span></li>
+  <li><b>Motora Exprés</b> — el 404 no es que esté roto: le falta la portada, las variables y una base, porque la suya vivía dentro del proyecto de Préstamos que se borró. Un día de trabajo. Pero no hay cliente pagando: en el CRM figura Joel con 700 € pendientes. <b>Archivar hasta que Joel confirme</b>, no tirarlo. <span class="t medio">medio</span></li>
+  <li><b>Jurídico RD</b> — lo serio es el corpus de leyes, pero su Código Penal estaba vigente «hasta agosto de 2026»: ya caducó. Y apunta a un modelo de IA que no existe. Sin desplegar, sin cuentas y sin cobro. <span class="t mucho">mucho</span></li>
+  <li><b>Cocina</b> — está terminado, pero no es un producto: llama a El Paraíso con el local escrito a fuego. Su sitio es dentro de Brasa. <span class="t poco">poco</span></li>
+  <li><b>CRM</b> — una maqueta que no guarda nada. Es interno, no vende. Está abierto en internet con nombres de clientes; <b>Alex ya ha dicho que no le preocupa</b>, queda anotado y no se toca. <span class="t medio">medio</span></li>
+</ul>
+
+<h2>Las webs de clientes</h2>
+<p class="intro">Aquí «parado» es lo correcto: una web entregada y en su dominio no se toca.</p>
+<ul class="limpia">
+  <li><b>Terminadas y quietas:</b> Nails By Ally, LZR Coaching y Lacados Solutions. Entre tres y cuatro meses sin tocar, las tres con dominio propio y respondiendo.</li>
+  <li><b>En marcha ahora mismo:</b> Multiservices CGB y Escoleta Dayana, las dos con trabajo de ayer.</li>
+  <li><b>Con movimiento reciente:</b> Soinea y Astrid Strahlefrau.</li>
+  <li><b>Pendiente de decidir:</b> hay <b>tres</b> Mesomedic vivos a la vez (v2, v3 y la previa). Hay que quedarse con uno y borrar los otros.</li>
+</ul>
+
+<h2>Lo que no es código</h2>
+<p class="intro">Nada de esto se arregla programando. Son papeles, cuentas y decisiones.</p>
+<ul class="limpia">
+  <li><b>Para que Brasa sea fiscal de verdad:</b> firmar la declaración responsable del SIF —el documento ya está, con los huecos esperando—, contratar Verifacti, activar bar por bar y poner el contador fiscal a cero en El Paraíso antes de encender la cadena buena.</li>
+  <li><b>Para que GestorOS se pueda vender:</b> el certificado de Stalin, la declaración responsable del fabricante, validar una factura en FACe, colaborador social en la AEAT, Sistema RED y SILTRA, el alta en DEHú, un proveedor de firma cualificada, correo con dominio propio, y dar de alta Stripe para poder cobrar.</li>
+  <li><b>Para RUTA:</b> contratar el proveedor de WhatsApp —es el único coste mensual—, decidir el IVA y la numeración, firmar los papeles de protección de datos con Rubén y limpiar las empresas de prueba.</li>
+  <li><b>Decisiones de Stalin en El Paraíso:</b> encender los pedidos de mesa, subir las nóminas y ampliar el radio del fichaje.</li>
+  <li><b>Y una que nos afecta a los dos:</b> el asiento de Alex en el equipo de Vercel no puede desplegar. Todos los despliegues que han funcionado los firma Stalin. Se arregla con un interruptor en Vercel, no con una migración.</li>
+</ul>
+
+<h2>Documentos que mienten</h2>
+<p class="intro">Esto cuesta dinero: un documento que apunta a un sitio ya alcanzado manda a repetir trabajo hecho, y lo lee cada Claude que abre el proyecto.</p>
+<ul class="limpia">
+  <li><b>GestorOS</b> — el <code>README</code> se equivoca en casi todo: versión del framework, número de pantallas, y dice que el registro VeriFactu «está simulado» cuando hay una factura real aceptada por la AEAT.</li>
+  <li><b>RUTA</b> — <code>docs/REGISTRO.md</code> dice «16 tablas» y «el programa está terminado». Son 19 y quedan tres semanas sin fusionar.</li>
+  <li><b>Brasa</b> — el <code>README</code> dice 17 pruebas; son 19. Y durante meses un documento afirmó que las apps se actualizaban solas cuando no era verdad: los bares se quedaron congelados en la versión con la que se instalaron. Arreglado el 8 de septiembre.</li>
+  <li><b>El Paraíso</b> — el <code>LEEME</code> manda abrir un fichero que ya es otra cosa, y el mapa de productos se deja fuera dos programas y sitúa Brasa en una cuenta personal que ya no es la suya.</li>
+  <li><b>Y un error mío en este mismo informe:</b> cloné El Paraíso en corto y el primer análisis concluyó que «la historia se perdió el 3 de septiembre». Falso: el repositorio tiene más de 300 commits. Corregido antes de publicar esto.</li>
+</ul>
+
+<h2>Si hubiera que elegir tres cosas</h2>
+<ul class="limpia">
+  <li><b>1 · Encender lo fiscal de Brasa.</b> Es lo único que está funcionando con clientes delante, y lo fiscal está montado y apagado. No es código: es contratar y firmar.</li>
+  <li><b>2 · Quitar la puerta del autónomo en GestorOS.</b> Poco código, y detrás está el producto que se puede vender por volumen.</li>
+  <li><b>3 · Dos arreglos pequeños en El Paraíso.</b> Encender los pedidos de mesa y arreglar la línea de los QR: recupera unos carteles ya pagados y termina de cerrar el puente con Brasa.</li>
+</ul>
+
+<div class="pie">
+  <p>Medido el 12 de septiembre de 2026 ejecutando las pruebas, contando las migraciones y llamando a cada dirección. Donde un documento y el código no coincidían, manda el código.</p>
+  <p>Vive en <code>solers-es/solers</code> → <code>docs/ESTADO-12-SEP-2026.html</code>.</p>
+</div>
+
+</main>
+</body>
+</html>

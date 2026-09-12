@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Centro de trabajo solers</title>
+<meta name="description" content="Todo lo que hemos construido, en una pantalla.">
+<meta name="theme-color" content="#14120F">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sol:#D4622A;          /* el naranja del sol abierto */
+    --tinta:#14120F;        /* la tinta de la marca */
+    --hueso:#F2EDE3;
+    --verde:#6E8F5A;        /* responde */
+    --rojo:#A8412F;         /* no responde */
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --radio:3px;
+  }
+  /* MOSTRADOR: lo que ve quien no es de casa */
+  body.mostrador{ --fondo:#F2EDE3; --sobre:#EAE3D5; --texto:#14120F; --suave:#6B6257; --raya:#DAD1C0; }
+  /* TRASTIENDA: lo nuestro, de noche */
+  body.trastienda{ --fondo:#14120F; --sobre:#1E1A15; --texto:#F2EDE3; --suave:#9A9083; --raya:#2C2720; }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--fondo); color:var(--texto);
+    font-family:var(--sans); font-size:16px; line-height:1.5;
+    -webkit-tap-highlight-color:transparent;
+    transition:background-color .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
+
+  a{color:inherit}
+  .env{max-width:900px; margin:0 auto; padding:0 20px}
+
+  /* ---------- cabecera ---------- */
+  header{border-bottom:1px solid var(--raya); position:sticky; top:0; background:var(--fondo); z-index:20}
+  .barra{display:flex; align-items:center; gap:12px; padding:14px 0}
+  .marca{display:flex; align-items:center; gap:9px; font-family:var(--serif); font-size:20px; letter-spacing:-.01em; text-decoration:none}
+  .marca svg{display:block; flex:none}
+  .cambiar{
+    margin-left:auto; font:500 13px/1 var(--sans); color:var(--texto);
+    background:none; border:1px solid var(--raya); border-radius:99px;
+    padding:9px 15px; cursor:pointer; min-height:38px;
+  }
+  .cambiar:hover{border-color:var(--sol); color:var(--sol)}
+  :focus-visible{outline:2px solid var(--sol); outline-offset:2px; border-radius:var(--radio)}
+
+  /* ---------- MOSTRADOR ---------- */
+  .portada{padding:52px 0 4px}
+  .portada p{
+    max-width:34ch; margin:0; font-size:17px; color:var(--suave);
+  }
+  /* Cada proyecto es un boton con la pantalla de su propia aplicacion de
+     fondo. El primero ocupa el ancho entero: es la apuesta grande. */
+  .obra{
+    list-style:none; margin:34px 0 0; padding:0;
+    display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+  }
+  .obra li.grande{grid-column:1 / -1}
+  .boton{
+    position:relative; display:block; overflow:hidden; text-decoration:none;
+    border-radius:10px; background:var(--sobre);
+    aspect-ratio:8/5; color:#fff; isolation:isolate;
+  }
+  li.grande .boton{aspect-ratio:16/7}
+  .boton img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    object-position:top center; display:block; z-index:-2;
+    transition:transform .5s cubic-bezier(.2,.6,.2,1);
+  }
+  /* un pelin de sombra arriba, solo para que se lea el boton Abrir */
+  .boton::after{
+    content:""; position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(to bottom, rgba(12,10,9,.38) 0%, rgba(12,10,9,0) 20%);
+  }
+  /* El texto va en una banda esmerilada, no sobre un degradado: encima de una
+     captura cualquiera el titulo se mezclaba con el texto de la propia web. */
+  .boton .texto{
+    position:absolute; left:0; right:0; bottom:0; padding:15px 18px 16px;
+    background:rgba(11,9,8,.72);
+    backdrop-filter:blur(16px) saturate(.85);
+    -webkit-backdrop-filter:blur(16px) saturate(.85);
+    border-top:1px solid rgba(255,255,255,.10);
+  }
+  @supports not (backdrop-filter:blur(2px)){ .boton .texto{background:rgba(11,9,8,.9)} }
+  .boton .nom{
+    display:block; font-family:var(--serif); font-weight:600;
+    font-size:clamp(21px,3.4vw,27px); line-height:1.1; letter-spacing:-.015em;
+    text-wrap:balance;
+  }
+  li.grande .boton .nom{font-size:clamp(28px,5.2vw,40px)}
+  .boton .dic{
+    display:block; margin-top:5px; font-size:13.5px; line-height:1.45;
+    color:rgba(255,255,255,.82); max-width:44ch;
+  }
+  .boton .abrir{
+    position:absolute; top:13px; right:13px;
+    font:500 12px/1 var(--sans); letter-spacing:.01em;
+    background:rgba(20,18,15,.62); color:#fff;
+    border:1px solid rgba(255,255,255,.3); border-radius:99px;
+    padding:8px 13px; backdrop-filter:blur(6px);
+    transition:background-color .2s ease, border-color .2s ease;
+  }
+  .boton:hover img, .boton:focus-visible img{transform:scale(1.035)}
+  .boton:hover .abrir, .boton:focus-visible .abrir{background:var(--sol); border-color:var(--sol)}
+  .boton .dir{
+    display:block; margin-top:9px; font:400 11.5px/1 var(--mono);
+    color:rgba(255,255,255,.58);
+  }
+  .pie{padding:36px 0 60px; border-top:1px solid var(--raya); margin-top:40px; font-size:14px; color:var(--suave)}
+  .pie a{color:var(--sol)}
+
+  /* ---------- TRASTIENDA ---------- */
+  input[type=search]{
+    flex:1 1 200px; min-width:0; font:400 16px var(--sans);
+    background:var(--sobre); color:var(--texto);
+    border:1px solid var(--raya); border-radius:var(--radio);
+    padding:13px 14px; min-height:48px;
+  }
+  input::placeholder{color:var(--suave)}
+
+  .medida{
+    font:400 13px/1.6 var(--mono); color:var(--suave);
+    padding:16px 0; border-bottom:1px solid var(--raya);
+  }
+  .medida b{color:var(--texto); font-weight:500}
+  .buscador{position:sticky; top:63px; background:var(--fondo); padding:14px 0; z-index:10; border-bottom:1px solid var(--raya)}
+  .grupo{margin:34px 0 0}
+  .grupo > h2{
+    font:500 13px/1 var(--sans); color:var(--suave); margin:0 0 2px;
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .grupo > h2 span{font:400 12px var(--mono)}
+  .grupo > p{margin:0 0 10px; font-size:14px; color:var(--suave); max-width:52ch}
+
+  .filas{list-style:none; margin:0; padding:0}
+  .fila{border-top:1px solid var(--raya); padding:14px 0 15px; display:grid; grid-template-columns:14px 1fr auto; gap:0 12px; align-items:start}
+  .fila .mini{
+    width:104px; aspect-ratio:8/5; object-fit:cover; object-position:top center;
+    border-radius:6px; border:1px solid var(--raya); display:block;
+  }
+  .fila:last-child{border-bottom:1px solid var(--raya)}
+  .punto{width:9px; height:9px; border-radius:50%; margin-top:8px; background:var(--suave)}
+  .punto.si{background:var(--verde)}
+  .punto.no{background:var(--rojo)}
+  .punto.na{background:transparent; border:1px solid var(--raya)}
+  .fila h3{margin:0; font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:-.01em}
+  .fila h3 a{text-decoration:none}
+  .fila h3 a:hover{color:var(--sol)}
+  .fila .que{margin:3px 0 0; font-size:14px; color:var(--suave); max-width:54ch}
+  .fila .nota{margin:7px 0 0; font-size:13.5px; color:var(--texto); border-left:2px solid var(--sol); padding-left:10px}
+  .fila .enlaces{margin-top:9px; display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; font:400 12.5px var(--mono)}
+  .fila .enlaces a, .fila .enlaces button{
+    font:inherit; color:var(--suave); text-decoration:none; background:none;
+    border:1px solid var(--raya); border-radius:99px; padding:6px 11px; min-height:32px; cursor:pointer;
+  }
+  .fila .enlaces a:hover, .fila .enlaces button:hover{border-color:var(--sol); color:var(--sol)}
+  .fila .enlaces .dir{border-color:transparent; padding-left:0; color:var(--texto)}
+  .roto{color:var(--rojo)}
+  .vacio{padding:40px 0; color:var(--suave)}
+  .aparece{animation:sube .34s ease both}
+  @keyframes sube{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+  @media (max-width:560px){
+    .obra{grid-template-columns:1fr; gap:13px}
+    /* mas alto en el movil: si no, la banda del texto se come la captura */
+    .boton, li.grande .boton{aspect-ratio:7/5}
+    .portada{padding-top:34px}
+    .fila .mini{width:68px}
+  }
+</style>
+</head>
+<body class="mostrador">
+
+<header>
+  <div class="env barra">
+    <a class="marca" href="#mostrador" aria-label="solers, inicio">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <!-- el sol abierto: anillo con el hueco arriba a la derecha -->
+        <path d="M11 2.6a8.4 8.4 0 1 0 7.3 4.2" fill="none" stroke="#D4622A" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <span>solers</span>
+    </a>
+    <button class="cambiar" id="cambiar" type="button">Entrar a lo interno</button>
+  </div>
+</header>
+
+<main class="env" id="principal">
+  <!-- ============ MOSTRADOR ============ -->
+  <section id="mostrador">
+    <div class="portada">
+      <h1 class="visually-hidden" style="position:absolute;left:-9999px">Lo que hemos construido en solers</h1>
+      <p>Programas y webs que están funcionando hoy, con gente usándolos. Toca cualquiera para abrirlo.</p>
+    </div>
+    <ul class="obra" id="obra"></ul>
+    <div class="pie">
+      <p>solers · Alex y Stalin · <a href="mailto:admin@solers.es">admin@solers.es</a></p>
+    </div>
+  </section>
+
+  <!-- ============ TRASTIENDA ============ -->
+  <section id="interno" hidden>
+    <div id="dentro">
+      <div class="medida" id="medida"></div>
+      <div class="buscador">
+        <input type="search" id="buscar" placeholder="Buscar (pulsa / )" aria-label="Buscar un proyecto">
+      </div>
+      <div id="listas"></div>
+      <div class="pie">
+        <p>Se regenera con <code>node centro-generar.mjs</code> dentro del repositorio <code>solers-es/solers</code>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const corto = u => String(u).replace(/^https?:\/\//,'').replace(/\/$/,'');
+let DATOS = null, INTERNO = null;
+
+/* ---------- cargar ---------- */
+/* Sin contrasena: se ve todo de una. Lo privado lo da el enlace. */
+fetch('centro-datos.json?v=' + Date.now()).then(r => r.json()).then(d => {
+  DATOS = d; INTERNO = d;
+  pintarMostrador();
+  pintarInterno();
+  if (location.hash === '#interno') habitacion('interno');
+}).catch(() => {
+  $('#obra').innerHTML = '<li style="padding:24px 0;color:var(--suave)">No se han podido cargar los datos. Recarga la página.</li>';
+});
+
+/* ---------- mostrador ---------- */
+function pintarMostrador(){
+  $('#obra').innerHTML = DATOS.publico.map((p, i) => `
+    <li class="${i === 0 ? 'grande' : ''}">
+      <a class="boton" href="${esc(p.url)}" target="_blank" rel="noopener">
+        ${p.foto ? `<img src="${esc(p.foto)}" alt="Pantalla de ${esc(p.nombre)}" loading="eager" decoding="async">` : ''}
+        <span class="abrir">Abrir</span>
+        <span class="texto">
+          <span class="nom">${esc(p.nombre)}</span>
+          <span class="dic">${esc(p.texto)}</span>
+          <span class="dir">${esc(corto(p.url))}</span>
+        </span>
+      </a>
+    </li>`).join('');
+}
+
+/* ---------- cambiar de habitación ---------- */
+function habitacion(cual){
+  const interno = cual === 'interno';
+  document.body.className = interno ? 'trastienda' : 'mostrador';
+  $('#mostrador').hidden = interno;
+  $('#interno').hidden = !interno;
+  $('#cambiar').textContent = interno ? 'Volver al escaparate' : 'Entrar a lo interno';
+  document.querySelector('meta[name=theme-color]').content = interno ? '#14120F' : '#F2EDE3';
+  history.replaceState(null, '', '#' + cual);
+  if (interno) setTimeout(() => $('#buscar')?.focus({preventScroll:true}), 120);
+}
+$('#cambiar').onclick = () => habitacion($('#interno').hidden ? 'interno' : 'mostrador');
+
+/* ---------- trastienda ---------- */
+const ORDEN = ['producto','casa','cliente','interno','prueba'];
+const TITULO = {producto:'Productos', casa:'De casa', cliente:'Clientes', interno:'Herramientas nuestras', prueba:'Pruebas y versiones viejas'};
+
+function pintarInterno(){
+  const d = INTERNO, t = d.totales;
+  const con = d.proyectos.filter(p => p.url);
+  const vivas = con.filter(p => p.http === 200).length;
+  const cuando = new Date(d.generado);
+  $('#medida').innerHTML =
+    `<b>${t.fichas}</b> fichas · <b>${t.repos}</b> repositorios · <b>${t.proyectos_vercel}</b> proyectos publicados<br>` +
+    `<b>${vivas}</b> de ${con.length} direcciones responden · medido el ${cuando.toLocaleDateString('es-ES',{day:'numeric',month:'long'})} a las ${cuando.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})}`;
+  filtrar('');
+}
+
+function filtrar(q){
+  q = q.toLowerCase().trim();
+  const casa = p => !q || [p.nombre,p.que_es,p.url,p.repo,p.nota].join(' ').toLowerCase().includes(q);
+  const hay = INTERNO.proyectos.filter(casa);
+  if (!hay.length){ $('#listas').innerHTML = '<p class="vacio">Nada con ese nombre. Prueba con menos letras.</p>'; return; }
+  $('#listas').innerHTML = ORDEN.map(tipo => {
+    const ps = hay.filter(p => p.tipo === tipo);
+    if (!ps.length) return '';
+    return `<section class="grupo">
+      <h2>${TITULO[tipo]} <span>${ps.length}</span></h2>
+      <p>${esc(INTERNO.tipos[tipo] || '')}</p>
+      <ul class="filas">${ps.map(fila).join('')}</ul>
+    </section>`;
+  }).join('');
+}
+
+function fila(p){
+  const estado = !p.url ? 'na' : p.http === 200 ? 'si' : 'no';
+  const dias = p.repo_actualizado
+    ? Math.round((Date.now() - new Date(p.repo_actualizado)) / 864e5) : null;
+  const tocado = dias === null ? '' : dias === 0 ? 'tocado hoy' : dias === 1 ? 'ayer' : `hace ${dias} días`;
+  const enlaces = [];
+  if (p.url) enlaces.push(`<a class="dir" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(corto(p.url))}${p.dominio_propio ? ' ·propio' : ''}</a>`);
+  if (p.url) enlaces.push(`<button type="button" data-copiar="${esc(p.url)}">copiar</button>`);
+  if (p.repo_url) enlaces.push(`<a href="${esc(p.repo_url)}" target="_blank" rel="noopener">${esc(p.repo)}${p.repo_privado ? '' : ' ·público'}</a>`);
+  if (tocado) enlaces.push(`<span style="color:var(--suave)">${tocado}</span>`);
+  if (p.url && p.http !== 200) enlaces.push(`<span class="roto">responde ${p.http || 'nada'}</span>`);
+  return `<li class="fila aparece">
+    <span class="punto ${estado}" aria-hidden="true"></span>
+    <div>
+      <h3>${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.nombre)}</a>` : esc(p.nombre)}</h3>
+      <p class="que">${esc(p.que_es)}</p>
+      ${p.nota ? `<p class="nota">${esc(p.nota)}</p>` : ''}
+      <div class="enlaces">${enlaces.join('')}</div>
+    </div>
+    ${p.foto ? `<img class="mini" src="${esc(p.foto)}" alt="" loading="lazy" decoding="async">` : ''}
+  </li>`;
+}
+
+/* ---------- buscar y copiar ---------- */
+$('#buscar').addEventListener('input', e => filtrar(e.target.value));
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName) && INTERNO) {
+    e.preventDefault(); $('#buscar').focus();
+  }
+});
+document.addEventListener('click', async e => {
+  const btn = e.target.closest('[data-copiar]');
+  if (!btn) return;
+  try{
+    await navigator.clipboard.writeText(btn.dataset.copiar);
+    const antes = btn.textContent; btn.textContent = 'copiada';
+    setTimeout(() => btn.textContent = antes, 1400);
+  }catch{ btn.textContent = 'no se pudo'; }
+});
+</script>
+</body>
+</html>
