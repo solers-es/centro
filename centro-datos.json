@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-12T18:48:04.850Z",
+ "generado": "2026-09-12T19:05:15.261Z",
  "publico": [
   {
    "id": "gestoros",
@@ -42,8 +42,8 @@
    "tipo": "cliente",
    "dominio_propio": false,
    "foto": "fotos/ratolins.webp",
-   "demo": null,
-   "demo_que": null
+   "demo": "https://ratolins.vercel.app/demo",
+   "demo_que": "El parte del dia de un peque, como lo ven los padres"
   },
   {
    "id": "escoleta-dayana",
