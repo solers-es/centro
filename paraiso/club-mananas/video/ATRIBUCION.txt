@@ -1,0 +1,19 @@
+ATRIBUCIÓN DE LA MÚSICA
+=======================
+
+El vídeo "club-mananas.mp4" usa música de fondo bajo licencia Creative Commons.
+
+Obra:     "Cuban Sandwich"
+Autor:    Kevin MacLeod (incompetech.com)
+ISRC:     USUAN1600005
+Licencia: Creative Commons Attribution 4.0 (CC BY 4.0)
+          http://creativecommons.org/licenses/by/4.0/
+
+Crédito recomendado (copiar en la descripción de la publicación):
+
+  "Cuban Sandwich" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+
+La música se mezcla por debajo de la voz (~ -20 dB) con fundidos de
+entrada y salida. Fichero original: el-paraiso-video/musica-cuban-sandwich.mp3
