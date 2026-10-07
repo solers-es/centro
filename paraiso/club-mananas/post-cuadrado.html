@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--cafe:#361F12;--cafe2:#6F4A2E;--dorado:#C4852A;--dorado2:#E7B65A;--verde:#2E7D32;--rojo:#E0541F}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1080px;overflow:hidden}
+  body{font-family:'Poppins',sans-serif;position:relative;color:#fff}
+  .bg{position:absolute;inset:0}
+  .bg img{width:100%;height:100%;object-fit:cover}
+  .scrim{position:absolute;inset:0;background:
+    linear-gradient(180deg,rgba(42,22,10,.62) 0%,rgba(42,22,10,.28) 34%,rgba(42,22,10,.52) 66%,rgba(30,16,7,.9) 100%)}
+  .wrap{position:absolute;inset:0;padding:48px 56px 52px;display:flex;flex-direction:column;z-index:2}
+  .top{display:flex;align-items:center;gap:18px}
+  .logobadge{width:88px;height:88px;background:#fff;border-radius:50%;display:grid;place-items:center;border:3px solid rgba(231,182,90,.7)}
+  .logobadge img{width:70px;height:70px;object-fit:contain}
+  .brand{font-family:'Playfair Display',serif;font-weight:800;font-size:30px;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+  .brand small{display:block;font-family:'Poppins';font-weight:600;font-size:14px;letter-spacing:.28em;margin-top:5px;opacity:.9}
+  .nuevo{margin-left:auto;background:var(--rojo);font-weight:800;letter-spacing:.16em;font-size:17px;padding:11px 22px;border-radius:999px}
+  .mid{margin-top:auto}
+  .eyebrow{display:inline-block;background:rgba(255,255,255,.95);color:var(--cafe);font-weight:700;letter-spacing:.1em;
+    font-size:18px;padding:9px 20px;border-radius:999px;margin-bottom:18px}
+  h1{font-family:'Playfair Display',serif;font-weight:900;font-size:98px;line-height:.92;text-shadow:0 5px 22px rgba(0,0,0,.45)}
+  .sub{font-family:'Playfair Display',serif;font-style:italic;font-size:30px;margin-top:14px;opacity:.95}
+  .chips{display:flex;gap:16px;margin-top:26px;flex-wrap:wrap}
+  .chip{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.4);backdrop-filter:blur(2px);
+    border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:12px;font-weight:600;font-size:21px}
+  .chip .ic{font-size:30px}
+  .chip b{font-weight:800}
+  .bottom{margin-top:30px;display:flex;align-items:center;gap:22px}
+  .pill{background:linear-gradient(90deg,var(--dorado),var(--dorado2));color:#3a2512;font-weight:800;font-size:28px;
+    padding:20px 34px;border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+  .ways{font-size:21px;font-weight:600;line-height:1.3}
+  .ways b{color:var(--dorado2)}
+</style>
+</head>
+<body>
+  <div class="bg"><img src="file:///C:/Users/Oficina1/.claude/jobs/51f3525a/tmp/club-mananas/marca/des-desayuno-completo.webp"></div>
+  <div class="scrim"></div>
+  <div class="wrap">
+    <div class="top">
+      <div class="logobadge"><img src="file:///C:/Users/Oficina1/.claude/jobs/51f3525a/tmp/club-mananas/marca/elparaiso-logo.png"></div>
+      <div class="brand">El Paraíso<small>BAR RESTAURANTE</small></div>
+      <div class="nuevo">NUEVO</div>
+    </div>
+    <div class="mid">
+      <div class="eyebrow">☕ Mañanas de 8:00 a 12:30 · Palma</div>
+      <h1>El Club de<br>las Mañanas</h1>
+      <div class="sub">El club de desayunos de El Paraíso</div>
+      <div class="chips">
+        <div class="chip"><span class="ic">🎟️</span><span>El <b>6º desayuno</b>, invita la casa</span></div>
+        <div class="chip"><span class="ic">☕</span><span><b>Café incluido</b> · socios L–V</span></div>
+      </div>
+      <div class="bottom">
+        <div class="pill">Hazte del Club</div>
+        <div class="ways">Apúntate <b>gratis</b><br>local o <b>WhatsApp</b></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

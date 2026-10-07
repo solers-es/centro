@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--crema:#FBF4E8;--cafe:#361F12;--cafe2:#6F4A2E;--dorado:#C4852A;--dorado2:#E7B65A;--verde:#2E7D32;--rojo:#E0541F}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1012px;height:638px;overflow:hidden}
+  body{font-family:'Poppins',sans-serif;color:var(--cafe);
+    background:
+      radial-gradient(600px 400px at 100% 0%,#FFF8EC,rgba(255,248,236,0) 60%),
+      linear-gradient(145deg,#FCF6EC 0%,#F0DEBE 100%);
+    position:relative}
+  .edge{position:absolute;inset:22px;border:2.5px solid rgba(196,133,42,.5);border-radius:24px;pointer-events:none}
+  .edge::after{content:"";position:absolute;inset:7px;border:1px solid rgba(196,133,42,.3);border-radius:17px}
+  .wrap{position:relative;z-index:2;height:100%;padding:52px 60px;display:flex;flex-direction:column}
+  .head{display:flex;align-items:center;gap:22px}
+  .logobadge{width:92px;height:92px;background:#fff;border-radius:50%;display:grid;place-items:center;
+    box-shadow:0 8px 16px rgba(54,31,18,.14);border:3px solid rgba(196,133,42,.35);flex:0 0 auto}
+  .logobadge img{width:74px;height:74px;object-fit:contain}
+  .htxt .eyebrow{font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:15px;color:var(--dorado)}
+  .htxt h1{font-family:'Playfair Display',serif;font-weight:900;font-size:40px;line-height:1;margin-top:4px}
+  .htxt .by{font-family:'Playfair Display',serif;font-style:italic;font-size:19px;color:var(--cafe2);margin-top:4px}
+  .cups{display:flex;gap:18px;justify-content:space-between;margin:auto 0}
+  .cup{flex:1;aspect-ratio:1;max-width:118px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.65);border:2.5px dashed rgba(111,74,46,.45);position:relative}
+  .cup .n{position:absolute;top:8px;left:12px;font-weight:700;font-size:15px;color:rgba(111,74,46,.6)}
+  .cup .ic{font-size:46px;opacity:.5}
+  .cup.free{background:linear-gradient(140deg,var(--rojo),var(--dorado));border:none;color:#fff;box-shadow:0 10px 20px rgba(224,84,31,.35)}
+  .cup.free .ic{opacity:1;font-size:40px}
+  .cup.free .lbl{font-weight:800;font-size:14px;letter-spacing:.04em;margin-top:2px;text-align:center;line-height:1.1}
+  .foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+  .foot .claim{font-family:'Playfair Display',serif;font-weight:800;font-size:28px}
+  .foot .claim b{color:var(--dorado)}
+  .foot .fine{font-size:14px;color:var(--cafe2);text-align:right;line-height:1.35;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="edge"></div>
+  <div class="wrap">
+    <div class="head">
+      <div class="logobadge"><img src="file:///C:/Users/Oficina1/.claude/jobs/51f3525a/tmp/club-mananas/marca/elparaiso-logo.png"></div>
+      <div class="htxt">
+        <div class="eyebrow">Tarjeta de fidelidad</div>
+        <h1>El Club de las Mañanas</h1>
+        <div class="by">de El Paraíso · Bar Restaurante</div>
+      </div>
+    </div>
+    <div class="cups">
+      <div class="cup"><span class="n">1</span><span class="ic">☕</span></div>
+      <div class="cup"><span class="n">2</span><span class="ic">☕</span></div>
+      <div class="cup"><span class="n">3</span><span class="ic">☕</span></div>
+      <div class="cup"><span class="n">4</span><span class="ic">☕</span></div>
+      <div class="cup"><span class="n">5</span><span class="ic">☕</span></div>
+      <div class="cup free"><span class="ic">🎁</span><span class="lbl">¡GRATIS!</span></div>
+    </div>
+    <div class="foot">
+      <div class="claim">El <b>6º desayuno</b>, invita la casa</div>
+      <div class="fine">Un sello por desayuno · Mañanas 8:00–12:30<br>Válida solo en El Paraíso · Palma de Mallorca</div>
+    </div>
+  </div>
+</body>
+</html>

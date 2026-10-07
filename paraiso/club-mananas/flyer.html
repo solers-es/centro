@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Club de las Mañanas · El Paraíso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FBF4E8;--cafe:#361F12;--cafe2:#6F4A2E;--dorado:#C4852A;--dorado2:#E7B65A;
+    --verde:#2E7D32;--rojo:#E0541F;--wa:#25D366;--wa2:#1EBE5B;
+  }
+  /* NOTA: cambia los enlaces wa.me por el número real del local, ej: https://wa.me/34600000000 */
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',Segoe UI,sans-serif;color:var(--cafe);
+    background:linear-gradient(170deg,#FCF6EC 0%,#F4E4C8 100%);line-height:1.5;overflow-x:hidden}
+  .page{max-width:520px;margin:0 auto;padding:0 20px 120px}
+  header{text-align:center;padding:40px 0 10px}
+  .logobadge{width:120px;height:120px;margin:0 auto;background:#fff;border-radius:50%;display:grid;place-items:center;
+    box-shadow:0 12px 26px rgba(54,31,18,.16);border:4px solid rgba(196,133,42,.3)}
+  .logobadge img{width:98px;height:98px;object-fit:contain}
+  .eyebrow{margin-top:18px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;color:var(--dorado)}
+  h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(42px,12vw,58px);line-height:.98;margin-top:8px;
+    background:linear-gradient(180deg,#4A2C18,#8A5A2C);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-family:'Playfair Display',serif;font-style:italic;font-size:21px;color:var(--cafe2);margin-top:12px}
+  .hours{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#fff;border:2px solid rgba(196,133,42,.3);
+    padding:10px 20px;border-radius:999px;font-weight:700;font-size:16px;box-shadow:0 6px 16px rgba(54,31,18,.08)}
+  .hours b{color:var(--dorado)}
+  .hero{margin:26px 0 8px;border-radius:24px;overflow:hidden;border:5px solid #fff;box-shadow:0 18px 40px rgba(54,31,18,.22);position:relative}
+  .hero img{width:100%;height:230px;object-fit:cover;display:block}
+  .hero .tape{position:absolute;left:0;bottom:0;right:0;background:linear-gradient(0deg,rgba(40,21,9,.85),transparent);
+    color:#fff;font-weight:700;padding:30px 20px 14px;font-size:16px}
+  .intro{text-align:center;font-size:17px;color:var(--cafe2);margin:22px 4px 8px}
+  .intro b{color:var(--cafe)}
+  .perks{display:flex;flex-direction:column;gap:16px;margin-top:22px}
+  .perk{background:#fff;border-radius:20px;padding:22px;display:flex;gap:18px;align-items:flex-start;
+    box-shadow:0 10px 24px rgba(54,31,18,.1);border:2px solid rgba(196,133,42,.2)}
+  .perk .ic{font-size:38px;line-height:1;flex:0 0 auto}
+  .perk>div{min-width:0}
+  .perk h3{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;line-height:1.1}
+  .perk p{font-size:15.5px;color:var(--cafe2);margin-top:6px}
+  .perk .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:#fff;background:var(--verde);padding:5px 12px;border-radius:999px}
+  .perk .tag.gold{background:var(--dorado)}
+  h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;text-align:center;margin:40px 0 6px}
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:14px;margin-top:18px}
+  .step{background:rgba(255,255,255,.6);border-radius:16px;padding:18px 18px 18px 64px;position:relative;font-size:15.5px;border:1.5px solid rgba(196,133,42,.25)}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--dorado),var(--dorado2));color:#fff;
+    font-weight:800;display:grid;place-items:center;font-size:17px;box-shadow:0 4px 10px rgba(196,133,42,.4)}
+  .step b{color:var(--cafe)}
+  .bases{margin-top:18px;background:#fff;border-radius:18px;padding:20px 22px;border:2px solid rgba(196,133,42,.2);box-shadow:0 8px 20px rgba(54,31,18,.08)}
+  .bases li{list-style:none;padding:10px 0 10px 28px;position:relative;font-size:14.5px;color:var(--cafe2);border-bottom:1px dashed rgba(111,74,46,.2)}
+  .bases li:last-child{border-bottom:none}
+  .bases li::before{content:"☕";position:absolute;left:0;top:9px;font-size:15px}
+  .bases li b{color:var(--cafe)}
+  .cta-final{text-align:center;margin-top:40px}
+  .cta-final p{font-size:16px;color:var(--cafe2);margin-top:10px}
+  .btn-wa{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;margin-top:14px;
+    background:linear-gradient(135deg,var(--wa),var(--wa2));color:#fff;font-weight:800;font-size:21px;
+    padding:20px;border-radius:18px;text-decoration:none;box-shadow:0 12px 28px rgba(37,211,102,.4)}
+  .btn-sec{display:inline-block;margin-top:14px;color:var(--cafe2);font-weight:600;font-size:15px;text-decoration:none;border-bottom:2px solid var(--dorado2);padding-bottom:2px}
+  .barbottom{position:fixed;left:0;right:0;bottom:0;background:rgba(251,244,232,.95);backdrop-filter:blur(8px);
+    border-top:1px solid rgba(196,133,42,.3);padding:12px 16px calc(12px + env(safe-area-inset-bottom));z-index:20}
+  .barbottom .inner{max-width:520px;margin:0 auto}
+  .barbottom a{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--wa),var(--wa2));
+    color:#fff;font-weight:800;font-size:18px;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 8px 20px rgba(37,211,102,.35)}
+  footer{text-align:center;margin-top:40px;font-size:13px;color:var(--cafe2)}
+  footer b{color:var(--cafe)}
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logobadge"><img src="marca/elparaiso-logo.png" alt="El Paraíso"></div>
+      <div class="eyebrow">El Paraíso · Bar Restaurante · Palma</div>
+      <h1>El Club de las Mañanas</h1>
+      <div class="sub">El club de desayunos de El Paraíso</div>
+      <div class="hours">☕ Mañanas de <b>8:00 a 12:30</b></div>
+    </header>
+
+    <div class="hero">
+      <img src="marca/des-desayuno-completo.webp" alt="Desayuno de El Paraíso">
+      <div class="tape">Tu mañana empieza aquí, en El Paraíso</div>
+    </div>
+
+    <p class="intro">Hazte socio <b>gratis</b> y desayuna como en casa.
+      Cada mañana suma, y El Paraíso te lo agradece.</p>
+
+    <div class="perks">
+      <div class="perk">
+        <div class="ic">🎟️</div>
+        <div>
+          <h3>El 6º desayuno, invita la casa</h3>
+          <p>Con tu tarjeta de fidelidad, sellas un café por cada desayuno. Al sexto, lo pagamos nosotros.</p>
+          <span class="tag gold">Tarjeta de fidelidad</span>
+        </div>
+      </div>
+      <div class="perk">
+        <div class="ic">☕</div>
+        <div>
+          <h3>Café incluido con tu desayuno</h3>
+          <p>De lunes a viernes, los socios se llevan el café incluido con cualquier desayuno. Empieza el día bien.</p>
+          <span class="tag">Solo socios · L a V</span>
+        </div>
+      </div>
+      <div class="perk">
+        <div class="ic">📱</div>
+        <div>
+          <h3>Ofertas de mañana por WhatsApp</h3>
+          <p>Te avisamos de la tostada del día y de los caprichos de la mañana. Sin spam, solo cosas ricas.</p>
+          <span class="tag gold">Canal de WhatsApp</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Cómo funciona</h2>
+    <div class="steps">
+      <div class="step">Te apuntas <b>gratis</b>: en la barra del local o por WhatsApp. Sin cuotas ni letra pequeña.</div>
+      <div class="step">Recibes tu <b>tarjeta de fidelidad</b> y, si quieres, te unes al canal de WhatsApp.</div>
+      <div class="step">Desayunas por la mañana (8:00–12:30) y <b>sellamos tu tarjeta</b>. El café va incluido de L a V.</div>
+      <div class="step">Al <b>6º desayuno</b>, invita la casa. Así de fácil.</div>
+    </div>
+
+    <h2>Las bases del club</h2>
+    <ul class="bases">
+      <li><b>Apuntarse es gratis</b> y para siempre. En el local o por WhatsApp.</li>
+      <li>Válido solo en <b>El Paraíso</b> (Palma), en horario de mañanas <b>8:00–12:30</b>.</li>
+      <li>Un sello por desayuno. El <b>6º desayuno es gratis</b> (el de menor importe de los seis).</li>
+      <li><b>Café incluido</b> con el desayuno, solo socios y de <b>lunes a viernes</b>.</li>
+      <li>La tarjeta es personal. No acumulable con otras promociones.</li>
+      <li>El Paraíso puede ajustar las ventajas avisando por el canal.</li>
+    </ul>
+
+    <div class="cta-final">
+      <p>¿Te vienes al club?</p>
+      <a class="btn-wa" href="https://wa.me/34600000000?text=Hola!%20Quiero%20apuntarme%20al%20Club%20de%20las%20Ma%C3%B1anas" target="_blank" rel="noopener">
+        <span style="font-size:24px">💬</span> Apuntarme por WhatsApp
+      </a>
+      <a class="btn-sec" href="#como" onclick="document.querySelector('h2').scrollIntoView({behavior:'smooth'});return false;">o ver cómo funciona ↑</a>
+    </div>
+
+    <footer>
+      <b>El Paraíso · Bar Restaurante</b><br>
+      Palma de Mallorca · Mañanas de 8:00 a 12:30<br>
+      #ElClubDeLasMañanas
+    </footer>
+  </div>
+
+  <div class="barbottom">
+    <div class="inner">
+      <a href="https://wa.me/34600000000?text=Hola!%20Quiero%20apuntarme%20al%20Club%20de%20las%20Ma%C3%B1anas" target="_blank" rel="noopener">
+        💬 Apúntate gratis por WhatsApp
+      </a>
+    </div>
+  </div>
+</body>
+</html>
