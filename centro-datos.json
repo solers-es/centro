@@ -24,6 +24,17 @@
    "demo_que": "El TPV por dentro: mesas, comandas, cocina y caja"
   },
   {
+   "id": "chispa",
+   "nombre": "Chispa",
+   "texto": "Marketing y redes para tu negocio: publica, programa y contesta reseñas desde un solo sitio, en cualquier idioma.",
+   "url": "https://solers-es.github.io/chispa-demo/",
+   "tipo": "producto",
+   "dominio_propio": false,
+   "foto": "fotos/chispa.webp",
+   "demo": null,
+   "demo_que": null
+  },
+  {
    "id": "el-paraiso",
    "nombre": "El Paraíso",
    "texto": "Un negocio entero gestionado desde una sola web: cuentas, equipo, carta y reservas.",
