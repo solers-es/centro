@@ -1,0 +1,151 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chispa · qué GPU/hardware para la IA propia</title>
+<meta name="description" content="Informe de decisión para Stalin: qué hardware hace falta para la IA de Chispa (imágenes FLUX, vídeo, voz). Tres caminos, qué GPU comprar, qué modelos open-source y recomendación por fases con números.">
+<style>
+  :root{--bg:#0b0d12;--bg2:#12151c;--panel:#161a22;--panel2:#1b212b;--line:#272e3a;--tx:#e8ecf3;--tx2:#a6b0c0;--tx3:#79839a;
+    --amar:#ffcc33;--amar2:#ffb020;--mor:#8b5cf6;--mor2:#a78bfa;--verde:#34d399;--rojo:#f87171;--azul:#60a5fa}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 -apple-system,"Segoe UI",system-ui,sans-serif;padding:0 14px}
+  .w{max-width:1000px;margin:0 auto;padding:26px 0 90px}
+  .hero{text-align:center;padding:18px 0 6px}
+  .hero .ico{font-size:40px}
+  h1{font:800 30px/1.1 Georgia,serif;margin:6px 0 4px;letter-spacing:-.4px}
+  h1 .g{background:linear-gradient(135deg,var(--amar),var(--mor2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .f{color:var(--tx2);font-size:14px;margin:0 0 6px}
+  h2{font:800 20px/1.2 Georgia,serif;margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  h3{margin:16px 0 4px;font-size:16px;color:#fff}
+  p{margin:9px 0}
+  .box{border-radius:12px;padding:15px 18px;margin:14px 0;border-left:4px solid}
+  .mo{background:#17122a;border-color:var(--mor)} .am{background:#241d0b;border-color:var(--amar2)}
+  .vd{background:#0f2418;border-color:var(--verde)} .rj{background:#2a1414;border-color:var(--rojo)}
+  .az{background:#0e1c2e;border-color:var(--azul)}
+  .box b{color:#fff}
+  .cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin:14px 0}
+  @media(max-width:780px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card .t{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mor2)}
+  .card h3{margin:4px 0 6px;font-size:17px}
+  .card .pr{font:800 20px/1.1 Georgia,serif;color:var(--amar);margin:4px 0}
+  .card .d{font-size:12.5px;color:var(--tx2)}
+  .card .sp{font-size:11.5px;color:var(--verde);font-weight:700;margin-top:6px}
+  .card .sp.r{color:var(--rojo)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mor2);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+  td b{color:#fff}
+  tr.hi td{background:#17122a}
+  .tl{position:relative;margin:14px 0 0;padding-left:4px}
+  .ph{display:flex;gap:13px;align-items:flex-start;margin:0 0 16px}
+  .ph .nn{flex:0 0 58px;min-height:46px;border-radius:12px;background:linear-gradient(135deg,var(--mor),var(--amar2));color:#1a1005;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:12px;text-align:center;line-height:1.1;padding:6px}
+  .ph .bd{flex:1}
+  .ph .bd h4{margin:2px 0 4px;font-size:15.5px}
+  .ph .bd ul{margin:4px 0;padding-left:18px} .ph .bd li{font-size:13.5px;margin:3px 0}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:14px 0}
+  @media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .kpi .n{font:800 20px/1.05 Georgia,serif;color:var(--verde)} .kpi .n.o{color:var(--amar)} .kpi .n.r{color:var(--rojo)}
+  .kpi .l{font-size:11px;color:var(--tx3);margin-top:5px;line-height:1.35}
+  ul.cl{padding-left:19px} ul.cl li{margin:5px 0;font-size:14px}
+  .tag{display:inline-block;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .tag.ok{background:#0f2418;color:var(--verde)} .tag.no{background:#2a1414;color:var(--rojo)}
+  .pie{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--tx3)}
+</style></head><body><div class="w">
+
+<div class="hero">
+<div class="ico">⚡🖥️</div>
+<h1>Qué GPU/hardware <span class="g">para la IA de Chispa</span></h1>
+<p class="f">7 de octubre de 2026 · Informe de decisión para Stalin · Imágenes (FLUX), vídeo y voz · Documento interno</p>
+</div>
+
+<div class="box mo">
+<b>En una frase:</b> <b>no hace falta comprar nada para empezar.</b> Chispa puede producir imágenes, vídeo y voz de nivel profesional <b>hoy mismo, con 0 € de hardware</b>, pagando por uso en la nube — y los conectores ya están hechos. Comprar un PC con GPU propia solo compensa <b>cuando el volumen mensual sea grande y sostenido</b>, y aun así el vídeo "de cine" conviene seguir sacándolo por API de pago, porque ahí la IA abierta todavía no llega.
+</div>
+
+<h2>El punto de partida (medido en esta Mesa, 07/10/2026)</h2>
+<p>Esta Mesa <b>no sirve para IA pesada</b>, y está confirmado midiéndolo:</p>
+<ul class="cl">
+<li><b>CPU:</b> AMD Athlon 220GE — 2 núcleos / 4 hilos (muy justo).</li>
+<li><b>RAM:</b> 5,9 GB (una sesión de IA de imagen pide bastante más).</li>
+<li><b>GPU:</b> <b>ninguna NVIDIA.</b> Solo Radeon Vega 3 integrada → <b>sin CUDA</b>, que es lo que necesitan FLUX y el vídeo.</li>
+<li><b>Sistema:</b> Windows 10.</li>
+</ul>
+<div class="box vd"><b>Qué SÍ corre aquí:</b> el motor ligero. <b>Piper (voz)</b> va bien — 5,5 s de audio en 3,4 s — y <b>FFmpeg</b> (montaje) también. <b>Qué NO:</b> FLUX (imágenes), LTX-Video / Wan (vídeo) ni <code>faster-whisper</code> (aquí crashea). La Mesa se queda como lo que ya es — montaje y voz locales gratis — y la IA de imagen y vídeo sale <b>fuera de la Mesa</b>. Hay tres formas.</div>
+
+<h2>1 · Los tres caminos</h2>
+<div class="cards">
+<div class="card"><div class="t">a · lo inmediato</div><h3>Pago por uso en la nube</h3><div class="pr">0 €<span style="font-size:12px;color:var(--tx3)"> de hardware</span></div><div class="d">Mandas la petición, te devuelve el resultado y pagas lo que gastes. Sin instalar nada, sin GPU.</div><div class="sp">Profesional desde el día 1 · conectores ya hechos</div></div>
+<div class="card"><div class="t">b · para validar</div><h3>GPU en la nube por horas</h3><div class="pr">~0,30–1 €<span style="font-size:12px;color:var(--tx3)"> /hora</span></div><div class="d">Alquilas una RTX 4090 o A100 (Runpod, Vast) y corres modelos open-source tú mismo. Pagas el tiempo encendida.</div><div class="sp">Probar lo abierto sin comprar</div></div>
+<div class="card"><div class="t">c · la inversión</div><h3>Comprar un PC con GPU</h3><div class="pr">~1.000–2.500 €</div><div class="d">Compras la máquina y corres todo en casa. Pagas una vez (y la luz). Una vez amortizado, generar sale "gratis".</div><div class="sp r">Solo con volumen alto · ver cálculo</div></div>
+</div>
+<p style="font-size:13.5px;color:var(--tx2)"><b>Cifras del pago por uso (estimación 2026):</b> imágenes FLUX en fal.ai ~<b>0,003–0,025 $/img</b> · vídeo en Replicate ~<b>0,08 $/s</b> (un clip de 5 s ≈ 0,40 $) · avatares HeyGen ~<b>0,30–0,50 $/min</b> · voz premium ElevenLabs por caracteres (céntimos a pocos €). La voz básica ya la tenemos gratis con Piper en la Mesa.</p>
+
+<h2>2 · Si vamos por hardware propio: qué GPU</h2>
+<p>Lo que manda en IA no es tanto la velocidad como la <b>VRAM</b> (la memoria de la tarjeta): define qué modelos entran y qué tamaño de vídeo puedes generar.</p>
+<table>
+<tr><th>GPU</th><th>VRAM</th><th>Precio orient.<br>(est. 2026)</th><th>Qué permite</th></tr>
+<tr><td><b>RTX 4060 Ti 16GB</b></td><td>16 GB</td><td>~450–500 €</td><td>FLUX schnell/dev en ~10–30 s. Vídeo corto, justo de memoria. Entrada digna.</td></tr>
+<tr class="hi"><td><b>RTX 3090 24GB</b><br><span style="color:var(--mor2);font-size:12px">2.ª mano</span></td><td>24 GB</td><td>~700–900 €</td><td><b>La mejor relación calidad/precio.</b> FLUX rápido, LTX/Wan de vídeo y clonación de voz — todo cabe por sus 24 GB.</td></tr>
+<tr><td><b>RTX 4090 24GB</b></td><td>24 GB</td><td>~1.800–2.000 €</td><td>Lo top práctico. FLUX en 2–5 s, vídeo con holgura. Más rápida que la 3090, misma VRAM.</td></tr>
+<tr><td><b>RTX 5090 32GB</b></td><td>32 GB</td><td>~2.500 €+</td><td>Más memoria y velocidad. Para empezar es pasarse.</td></tr>
+</table>
+<div class="box mo"><b>La recomendación dentro de la tabla: la RTX 3090 de segunda mano.</b> 24 GB de VRAM — lo mismo que una 4090 — por menos de la mitad de precio. Es la tarjeta con la que más gente monta IA en casa sin arruinarse.</div>
+
+<h3>El resto del PC (no solo la GPU)</h3>
+<ul class="cl">
+<li><b>CPU:</b> Ryzen 5 / 7 (6–8 núcleos) — ~150–250 €.</li>
+<li><b>RAM:</b> <b>32 GB mínimo, 64 GB mejor</b> — ~80–180 €.</li>
+<li><b>Disco:</b> SSD NVMe 1 TB (los modelos pesan mucho) — ~60–90 €.</li>
+<li><b>Fuente:</b> 750–850 W de calidad (la 3090/4090 tiran mucho) — ~90–140 €.</li>
+<li><b>Placa, caja, refrigeración</b> — ~200–300 €.</li>
+</ul>
+<div class="kpis">
+<div class="kpi"><div class="n o">~1.000 €</div><div class="l">PC con RTX 4060 Ti 16GB</div></div>
+<div class="kpi"><div class="n">~1.300–1.500 €</div><div class="l">PC con RTX 3090 24GB (2ª mano)</div></div>
+<div class="kpi"><div class="n o">~2.300–2.500 €</div><div class="l">PC con RTX 4090 24GB</div></div>
+<div class="kpi"><div class="n">~6–8 €/mes</div><div class="l">luz de la GPU usándola ~4 h/día</div></div>
+</div>
+
+<h2>3 · Qué modelos open-source correría</h2>
+<p>Tanto la GPU por horas (b) como el PC propio (c) corren lo mismo. Esto es lo bueno y gratis que hay hoy:</p>
+<ul class="cl">
+<li><b>Imágenes — FLUX.1</b> <span class="tag ok">lo mejor en abierto</span> <code>schnell</code> (rapidísimo, 4 pasos) y <code>dev</code> (más calidad). Rivaliza con lo de pago. Cómodo en 24 GB; con 16 GB o menos va cuantizado y más lento.</li>
+<li><b>Vídeo — LTX-Video y Wan 2.2</b> <span class="tag no">piden mucha VRAM</span> clips cortos de unos segundos. Wan 2.2 va de verdad con 24 GB. Para planos y animaciones.</li>
+<li><b>Voz — Kokoro y Chatterbox</b> <span class="tag ok">ligero</span> TTS abierto de muy buena calidad; Chatterbox además clona voces. La Mesa ya corre Piper, de la misma familia.</li>
+</ul>
+<div class="box rj"><b>Lo honesto sobre el vídeo:</b> el vídeo IA "de cine" tipo <b>Veo 3 / Sora / Kling NO tiene equivalente open-source a ese nivel todavía</b>. LTX y Wan sirven para clips cortos y planos de relleno, pero el vídeo largo, coherente y realista que impresiona sigue siendo de pago. <b>Conclusión: aunque compres la GPU, el vídeo premium conviene seguir sacándolo por API.</b> La GPU propia cubre bien imágenes, vídeo corto y voz — ahí sí ahorra; el vídeo de cine, no.</div>
+
+<h2>4 · Recomendación por fases</h2>
+<div class="tl">
+<div class="ph"><div class="nn">FASE 1<br>AHORA</div><div class="bd"><h4>Pago por uso — 0 € de hardware</h4><ul><li>Empezar aquí sin dudarlo: <b>profesional desde el día 1, conectores ya hechos, 0 € de inversión</b>.</li><li>FLUX por fal.ai (imágenes), Replicate/Kling (vídeo), ElevenLabs (voz premium) y <b>Piper gratis en la Mesa</b> para la voz del día a día.</li><li>Cobramos a clientes antes de gastar un euro en máquinas.</li></ul></div></div>
+<div class="ph"><div class="nn">FASE 2<br>validar</div><div class="bd"><h4>GPU en la nube por horas</h4><ul><li>Cuando queramos ver si los modelos abiertos nos valen, alquilamos una <b>RTX 4090 por horas</b> (~0,30–1 €/h) y probamos FLUX y Wan <b>sin comprar nada</b>.</li><li>Así sabemos si la calidad open-source nos sirve antes de poner 1.300 €.</li></ul></div></div>
+<div class="ph"><div class="nn">FASE 3<br>comprar</div><div class="bd"><h4>PC con GPU propia — cuando el volumen lo pida</h4><ul><li>Montar un PC con <b>RTX 3090 (mejor precio)</b> o <b>4090 (si queremos velocidad)</b> cuando el gasto por uso sea grande y constante.</li><li>Y aun entonces, <b>mantener la API solo para el vídeo de cine</b>.</li></ul></div></div>
+</div>
+
+<h2>El cálculo: ¿cuándo compensa comprar?</h2>
+<p>Lo que decide no es el capricho, son los números. Ejemplo con volumen realista de Chispa (10 clientes activos):</p>
+<table>
+<tr><th>Concepto</th><th>Volumen/mes</th><th>Coste por uso (est. 2026)</th></tr>
+<tr><td>Imágenes (FLUX)</td><td>300 img × ~0,01 €</td><td>~3 €/mes</td></tr>
+<tr class="hi"><td><b>Vídeo corto IA</b></td><td>200 clips × 15 s × ~0,07 €</td><td><b>~210 €/mes</b></td></tr>
+<tr><td>Voz</td><td>mayormente <b>Piper gratis</b> en la Mesa</td><td>~0–10 €/mes</td></tr>
+</table>
+<div class="kpis">
+<div class="kpi"><div class="n r">+100.000</div><div class="l">imágenes para igualar un PC de 1.300 € → por imágenes solas NUNCA compensa comprar</div></div>
+<div class="kpi"><div class="n o">~200 €/mes</div><div class="l">gasto de vídeo sostenido a partir del cual empieza a salir a cuenta</div></div>
+<div class="kpi"><div class="n">~6–9 meses</div><div class="l">en amortizar una RTX 3090 (~1.300 €) a ese ritmo de vídeo</div></div>
+<div class="kpi"><div class="n">&lt; 150 €/mes</div><div class="l">por debajo de esto, pago por uso gana: no comprar</div></div>
+</div>
+<ul class="cl">
+<li><b>Las imágenes casi nunca justifican comprar:</b> a 1 céntimo cada una harían falta más de 100.000 para igualar un PC de 1.300 €.</li>
+<li><b>La voz tampoco:</b> Piper ya es gratis en la Mesa; la voz premium por uso es barata.</li>
+<li><b>El vídeo es lo que mueve la aguja:</b> si el vídeo por uso ronda ~200 €/mes sostenidos, una RTX 3090 se amortiza en ~6–9 meses — pero solo para el vídeo que los modelos abiertos cubren bien. El de cine seguirá siendo API.</li>
+</ul>
+
+<div class="box az"><b>La regla sencilla:</b> mientras el gasto por uso esté <b>por debajo de ~150 €/mes, NO comprar</b> — pago por uso gana. Cuando pase de ~150–200 €/mes <b>de forma estable varios meses seguidos</b> (sobre todo por vídeo corto y muchas imágenes), entonces <b>una RTX 3090 se paga sola</b> y toca comprar.</div>
+
+<div class="box mo"><b>La decisión de hoy:</b> arrancar en <b>Fase 1 (pago por uso, 0 €)</b>. No comprar nada todavía. Vigilar el gasto mensual: en cuanto el vídeo pase de ~150–200 €/mes constantes, probar la <b>Fase 2</b> (GPU por horas) y, si convence, comprar una <b>RTX 3090</b> en <b>Fase 3</b>.</div>
+
+<p class="pie">Compilado el 07/10/2026. Hardware de la Mesa verificado por medición directa (Athlon 220GE, 5,9 GB RAM, sin GPU NVIDIA; Piper OK, faster-whisper crashea). Precios de GPU, de servicios de pago por uso y de alquiler por horas son <b>estimaciones orientativas de 2026</b> y varían por proveedor, oferta y mercado de segunda mano; verificar antes de comprar. El break-even depende del volumen real: recalcular con las cifras verdaderas cuando las haya. El vídeo IA de cine (Veo/Sora/Kling) no tiene equivalente open-source equiparable a fecha de hoy. Documento interno de Chispa.</p>
+
+</div></body></html>
