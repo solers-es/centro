@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudio de competencia · Chispa</title>
+<meta name="description" content="Estudio de competencia de Chispa: hostelería, reseñas, España, Latinoamérica y tamaño de mercado.">
+<style>
+  :root{
+    --bg:#0c0a14; --bg2:#13101f; --panel:#1a1529; --panel2:#211a33;
+    --line:#2e2642; --line2:#3a3156;
+    --ink:#ece9f5; --mut:#a79fc2; --faint:#7d7499;
+    --violet:#a985ff; --violet2:#8b5cf6; --violetdim:#2a2140;
+    --amber:#f5b945; --amber2:#ffcf6b; --amberdim:#3a2c12;
+    --good:#54d6a0; --bad:#ff7a7a; --mid:#ffc66b;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:
+      radial-gradient(1100px 600px at 82% -8%, rgba(139,92,246,.18), transparent 60%),
+      radial-gradient(900px 500px at 8% 4%, rgba(245,185,69,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font:16px/1.65 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    letter-spacing:.1px;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:16px 20px 90px}
+  a{color:var(--amber2);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  header.hero{
+    margin-top:14px;padding:38px 34px;border-radius:22px;
+    background:linear-gradient(145deg,var(--panel2),var(--panel));
+    border:1px solid var(--line2);position:relative;overflow:hidden;
+  }
+  header.hero::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(500px 240px at 88% 0%,rgba(245,185,69,.14),transparent 60%);pointer-events:none}
+  .spark{display:inline-flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px;
+    color:var(--amber2);font-size:14px;text-transform:uppercase}
+  .spark .dot{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+    background:linear-gradient(145deg,var(--violet2),var(--amber));box-shadow:0 0 22px rgba(169,133,255,.55);font-size:15px}
+  h1{margin:16px 0 8px;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-.5px}
+  h1 .g{background:linear-gradient(100deg,var(--violet),var(--amber2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--mut);font-size:17px;max-width:70ch}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .chip{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line2);
+    background:var(--violetdim);color:#cdbff5;font-weight:600}
+  .chip.a{background:var(--amberdim);color:var(--amber2);border-color:#5a4418}
+
+  .note{margin:22px 0;padding:16px 18px;border-left:3px solid var(--amber);
+    background:linear-gradient(90deg,rgba(245,185,69,.08),transparent);border-radius:10px;color:#e8dfc9;font-size:14.5px}
+  .note b{color:var(--amber2)}
+
+  nav.toc{margin:26px 0;padding:18px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg2)}
+  nav.toc h4{margin:0 0 12px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint)}
+  nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:36px}
+  @media(max-width:620px){nav.toc ol{columns:1}}
+  nav.toc li{margin:5px 0}
+  nav.toc a{color:var(--ink)}
+
+  section{margin:40px 0}
+  h2{font-size:clamp(22px,3.4vw,30px);letter-spacing:-.3px;margin:0 0 6px;
+     display:flex;align-items:center;gap:14px}
+  h2 .n{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+    background:var(--violetdim);border:1px solid var(--line2);color:var(--violet);font-weight:800;font-size:18px}
+  h3{font-size:19px;margin:28px 0 10px;color:#ddd3f7}
+  h3 .k{color:var(--faint);font-weight:600;font-size:14px}
+  p{color:#ddd6ee}
+  .lead{color:var(--mut)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);margin:16px 0;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--panel2);color:#c9bff0;font-size:12px;letter-spacing:.6px;text-transform:uppercase;position:sticky;top:0}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(139,92,246,.06)}
+  td b{color:#f4eeff}
+  .price{color:var(--amber2);font-weight:700;white-space:nowrap}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .tag.ok{background:rgba(84,214,160,.14);color:var(--good);border:1px solid rgba(84,214,160,.3)}
+  .tag.est{background:rgba(255,198,107,.13);color:var(--mid);border:1px solid rgba(255,198,107,.3)}
+  .tag.no{background:rgba(255,122,122,.12);color:var(--bad);border:1px solid rgba(255,122,122,.3)}
+  .tag.v{background:var(--violetdim);color:var(--violet);border:1px solid var(--line2)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+  .card{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel);position:relative}
+  .card .big{font-size:30px;font-weight:800;letter-spacing:-.5px;
+    background:linear-gradient(100deg,var(--violet),var(--amber2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .card .lbl{color:var(--mut);font-size:13.5px;margin-top:4px}
+  .card .est{position:absolute;top:12px;right:12px}
+
+  .callout{padding:18px 20px;border:1px solid var(--line2);border-radius:14px;
+    background:linear-gradient(145deg,var(--violetdim),var(--panel));margin:18px 0}
+  .callout b{color:var(--amber2)}
+
+  .riskgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
+  .risk{padding:16px 18px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:12px;background:var(--panel)}
+  .risk h4{margin:0 0 6px;font-size:15px;color:#ffd9d9}
+  .risk p{margin:0;font-size:14px;color:var(--mut)}
+
+  ul.clean{list-style:none;padding:0;margin:14px 0}
+  ul.clean li{padding:8px 0 8px 26px;position:relative;border-bottom:1px solid var(--line);color:#d8d0ee;font-size:14.5px}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"◆";position:absolute;left:4px;top:8px;color:var(--amber);font-size:11px}
+
+  .srcbox{font-size:13.5px}
+  .srcbox li{padding:7px 0;border-bottom:1px solid var(--line);color:var(--mut)}
+  .srcbox code{background:var(--bg2);padding:1px 6px;border-radius:5px;color:#cdbff5;font-size:12.5px}
+
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);color:var(--faint);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="spark"><span class="dot">✦</span> Chispa · Solers</div>
+    <h1>Estudio de <span class="g">competencia</span></h1>
+    <p class="sub">El robot de marketing con IA para negocios locales: redes + reseñas, empezando por hostelería en Mallorca, por <b>29–99 €/mes</b>. Esta es la parte de <b>hostelería, reseñas, España, Latinoamérica y tamaño de mercado</b>.</p>
+    <div class="meta">
+      <span class="chip">7 de octubre de 2026</span>
+      <span class="chip a">6 precios confirmados ✓</span>
+      <span class="chip">Lo estimado va marcado</span>
+    </div>
+  </header>
+
+  <div class="note">
+    <b>Honestidad de datos.</b> Los precios con <span class="tag ok">oficial</span> están confirmados por WebFetch a la web oficial el 7/10/2026. Los <span class="tag est">estim.</span> son estimación (conocimiento, corte enero 2026) o cifras que la empresa esconde tras "hablar con ventas". La búsqueda web general estaba agotada en esta sesión: solo se usó WebFetch a páginas concretas. Donde una cifra no se ha podido confirmar, se dice.
+  </div>
+
+  <nav class="toc">
+    <h4>Contenido</h4>
+    <ol>
+      <li><a href="#s1">Competidores en hostelería</a></li>
+      <li><a href="#s2">Reseñas / reputación online</a></li>
+      <li><a href="#s3">España</a></li>
+      <li><a href="#s4">Latinoamérica</a></li>
+      <li><a href="#s5">Tamaño de mercado</a></li>
+      <li><a href="#s6">Conclusión y riesgos</a></li>
+      <li><a href="#fuentes">Fuentes y estimaciones</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="n">1</span> Competidores en hostelería</h2>
+    <p class="lead">El negocio de Chispa toca tres vecindarios hoy separados: <b>reseñas/reputación</b>, <b>contenido IA para redes</b> y, de refilón, <b>reservas con marketing</b>. Ningún competidor junta los tres barato y en español. Ese es el hueco.</p>
+
+    <h3>1.1 Reseñas y reputación hostelera</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Producto</th><th>Qué hace</th><th>A quién</th><th>Precio 2026</th><th>Español</th></tr></thead>
+      <tbody>
+        <tr><td><b>MARA AI</b> <span class="tag ok">oficial</span></td><td>Respuestas a reseñas con IA en 10+ plataformas, analítica de sentimiento, encuestas para pedir reseñas. Foco hotel/restaurante.</td><td>Hoteles y grupos</td><td><span class="price">70 / 130 / 210 €</span> por propiedad/mes (anual). 150–500 resp./mes; extra 0,30 €</td><td><span class="tag v">multi-idioma</span></td></tr>
+        <tr><td><b>Birdeye</b> <span class="tag est">precio estim.</span></td><td>Reseñas + reputación + redes + listados + encuestas + chatbots + suite de agentes IA (BirdAI, Jay, Myna, Robin).</td><td>Cadenas multi-local (EE.UU.)</td><td><span class="price">Solo presupuesto</span> · rango real ~250–400 $/local</td><td><span class="tag no">no indicado</span></td></tr>
+        <tr><td><b>Podium</b> <span class="tag est">precio estim.</span></td><td>Reseñas por SMS, bandeja unificada, pagos, marketing por texto, "AI Employee". 100.000+ negocios.</td><td>Pymes de servicios (EE.UU.)</td><td><span class="price">Solo presupuesto</span> · rango real ~400 $/mes+</td><td><span class="tag no">no indicado</span></td></tr>
+        <tr><td><b>Reputation</b> <span class="tag est">estim.</span></td><td>Plataforma enterprise de reputación: reseñas, encuestas, redes, listados, analítica.</td><td>Grandes multi-local (auto, salud)</td><td><span class="price">Enterprise</span> (miles €/año)</td><td><span class="tag v">multi-idioma</span></td></tr>
+        <tr><td><b>Localo</b> <span class="tag ok">oficial</span></td><td>SEO local / Ficha de Google: posiciones por keyword, contenido IA para la ficha, reseñas, informes.</td><td>Dueños y agencias</td><td><span class="price">39 $</span> (1 negocio) · <span class="price">149 $</span> (hasta 60 fichas)</td><td><span class="tag ok">Sí</span></td></tr>
+        <tr><td><b>Guestn</b> <span class="tag est">estim.</span></td><td>Reputación/encuestas por QR para hostelería, pedir reseñas.</td><td>Restaurantes (España)</td><td>No confirmado</td><td><span class="tag ok">Sí</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><b>Lectura.</b> Los grandes anglosajones (Birdeye, Podium) esconden el precio y van a multi-local grande; para un bar de Mallorca son caros y en inglés. MARA es excelente pero cara y pensada para hoteles. Localo es el más parecido en precio y sí está en español, pero cubre la <b>ficha de Google</b>, no publica contenido social. <b>Nadie de esta fila publica tu Instagram y responde tus reseñas por 29 €.</b></div>
+
+    <h3>1.2 Reservas con marketing <span class="k">— compiten por el mismo cliente, de refilón</span></h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Producto</th><th>Qué hace</th><th>Precio 2026</th><th>Español</th></tr></thead>
+      <tbody>
+        <tr><td><b>TheFork / ElTenedor</b> <span class="tag est">estim.</span></td><td>Reservas + marketplace de descubrimiento + reseñas propias. De TripAdvisor.</td><td><span class="price">Gratis + ~2 €/comensal</span> o suscripción</td><td><span class="tag ok">Nativo</span></td></tr>
+        <tr><td><b>CoverManager</b> <span class="tag est">estim.</span></td><td>Reservas, lista de espera, reseñas agregadas, CRM y email marketing. Producto español (Sevilla).</td><td>Suscripción desde ~<span class="price">89 €/mes</span></td><td><span class="tag ok">Nativo</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><b>Lectura.</b> No venden marketing de contenido, venden <b>reservas</b> — pero pelean por el mismo presupuesto y la misma cabeza del hostelero. Su reputación es un añadido. Chispa puede convivir con ellos e incluso integrarse.</div>
+
+    <h3>1.3 Contenido IA para redes <span class="k">— aplicado a restaurantes</span></h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Producto</th><th>Qué hace</th><th>Precio 2026</th><th>Español</th></tr></thead>
+      <tbody>
+        <tr><td><b>Predis.ai</b> <span class="tag ok">oficial</span></td><td>Genera posts, carruseles y vídeos con IA, programa y publica, análisis de competencia.</td><td><span class="price">24 $ · 55 $ · 212 $</span></td><td><span class="tag ok">Sí (18+ idiomas)</span></td></tr>
+        <tr><td><b>Ocoya</b> <span class="tag ok">oficial</span></td><td>Gestión de redes con IA: contenido, diseño, calendario, publicación multicanal.</td><td><span class="price">29 $ · 79 $ · 199 $</span></td><td><span class="tag est">sí vía IA (sin confirmar)</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><b>Lectura.</b> Estos <b>sí</b> compiten en precio con Chispa (24–29 $ de entrada) y publican en español. Pero son <b>genéricos</b>: no saben de hostelería, no gestionan tus reseñas de Google, y el hostelero tiene que pensar qué publicar. Les falta la reputación y el "robot que se encarga solo".</div>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="n">2</span> Reseñas / reputación online</h2>
+    <p>Gestionar las reseñas de Google (y TripAdvisor, redes) de un negocio local = <b>pedirlas, responderlas y analizarlas</b>. Es un dolor real: mueven ventas y posición en el mapa, pero el hostelero no tiene tiempo ni sabe qué contestar.</p>
+    <ul class="clean">
+      <li><b>MARA</b> — el rey de "responder reseñas con IA" en hostelería. 70–210 €/propiedad/mes. Hace solo eso, muy bien.</li>
+      <li><b>Birdeye / Podium / Reputation</b> — suites caras, multi-local, enterprise, en inglés, precio opaco.</li>
+      <li><b>Localo</b> — reseñas dentro de su SEO local; 39 $/mes y en español.</li>
+      <li><b>TheFork / CoverManager / Guestn</b> — reseñas como añadido a reservas/encuestas.</li>
+    </ul>
+    <p><b>Qué cubre la sección Reseñas de Chispa.</b> Lo esencial del flujo — <b>pedir</b> reseñas (QR / enlace tras la visita), <b>responder</b> con IA en el tono del negocio, y <b>avisar/analizar</b> lo que llega — todo dentro del mismo robot que ya publica las redes. No pretende la analítica enterprise de Birdeye ni los 10+ conectores de MARA; pretende que el bar de 8 mesas tenga sus reseñas atendidas sin contratar nada aparte.</p>
+    <div class="callout">
+      <b>¿Hay hueco para "reseñas + contenido + publicación" junto, barato y en español?</b><br>
+      Sí, y está vacío. Hoy el hostelero que quiere todo paga <b>Localo o MARA (reseñas) + Predis/Ocoya (contenido)</b> = dos herramientas, dos facturas, dos paneles, ~60–130 €/mes y en inglés. <b>Nadie ofrece el paquete por 29–99 € en español.</b> Ese solapamiento inexistente es el territorio de Chispa.
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="n">3</span> España</h2>
+    <p class="lead">Quién sirve hoy a la pyme/hostelería española en redes + reseñas — y por qué está casi todo por ocupar.</p>
+    <ul class="clean">
+      <li><b>Agencias y freelance de marketing local</b> — el rival real del día a día. 300–1.500 €/mes, a mano, no escala. El mayor competidor de Chispa no es un SaaS: es "mi sobrino que me lleva el Instagram".</li>
+      <li><b>Herramientas de contenido genéricas</b> (Predis, Ocoya, Metricool, Hootsuite, Canva) — baratas, pero el trabajo lo hace el dueño; no son de hostelería ni gestionan reputación.</li>
+      <li><b>Reseñas/reputación</b> — Localo en español; MARA y Birdeye en inglés o caros.</li>
+      <li><b>Reservas con reputación añadida</b> — CoverManager y TheFork, fuertes y nativos en España.</li>
+    </ul>
+
+    <h3>Rangos de precio €/mes en España</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Vía</th><th>€/mes</th><th>Observación</th></tr></thead>
+      <tbody>
+        <tr><td>Herramienta contenido IA</td><td class="price">22–75 €</td><td>genérica, el dueño trabaja</td></tr>
+        <tr><td>Reseñas (Localo)</td><td class="price">~36 €</td><td>solo ficha Google/reseñas</td></tr>
+        <tr><td>Reseñas hostelería (MARA)</td><td class="price">70–210 €</td><td>por propiedad, solo responder</td></tr>
+        <tr><td>Suite enterprise (Birdeye/Podium)</td><td class="price">250–400 $+</td><td>multi-local, inglés</td></tr>
+        <tr><td>Agencia humana</td><td class="price">300–1.500 €</td><td>a mano, no escala</td></tr>
+        <tr style="background:rgba(245,185,69,.07)"><td><b>Chispa</b></td><td class="price">29–99 €</td><td><b>todo-en-uno, español, hostelería</b></td></tr>
+      </tbody>
+    </table></div>
+
+    <p><b>Adopción:</b> baja-media y muy fragmentada. La mayoría de bares y restaurantes <b>no usan ningún SaaS</b> de marketing: llevan el Instagram a ratos y no responden las reseñas. Metricool ha educado al mercado de "programar redes", pero sigue siendo genérica. La capa "robot que se encarga por ti, de hostelería, barato y en español" <b>está sin ocupar</b>.</p>
+    <div class="callout"><b>Por qué Chispa tiene sitio.</b> Español nativo + foco hostelería (plantillas, tono, calendario de temporada) + todo-en-uno (contenido + publicación + reseñas) + precio de pyme. Encaja donde hoy no hay nada: el autónomo/microempresa que no puede pagar agencia y no quiere aprender tres herramientas.</div>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="n">4</span> Latinoamérica</h2>
+    <p>Mercado hispanohablante <b>enorme</b> (~450–500 M de hablantes) con pymes y microempresas <b>infraatendidas</b> por el SaaS de marketing. Los grandes ni miran la región; los locales de contenido son genéricos y en inglés por defecto.</p>
+    <h3>Qué favorece a Chispa</h3>
+    <ul class="clean">
+      <li><b>WhatsApp domina</b> — en México, Colombia, Argentina y Centroamérica el negocio vive en WhatsApp. Un robot que trabaje desde ahí tiene ventaja estructural.</li>
+      <li><b>Precios más bajos</b> — el tramo de 29 € (o inferior ajustado) es más vendible que los 70–400 $ anglosajones.</li>
+      <li><b>Poca competencia local de SaaS</b> — apenas hay productos nativos en español para marketing local de pyme.</li>
+      <li><b>Hispanohablante de serie</b> — Chispa no "traduce": nace en español.</li>
+    </ul>
+    <h3>Países clave <span class="k">(orientativo)</span></h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>País</th><th>Por qué</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td><b>México</b></td><td>El mayor mercado hispanohablante; enorme base de restaurantes y comercio local</td><td>Prioridad 1</td></tr>
+        <tr><td><b>Colombia</b></td><td>Pyme digital creciente, WhatsApp Business muy extendido</td><td>Prioridad 1</td></tr>
+        <tr><td><b>Argentina</b></td><td>Gran cultura gastronómica y de redes</td><td>Potente, pago complicado</td></tr>
+        <tr><td><b>Rep. Dominicana</b></td><td>Vínculo directo del equipo; hostelería turística fuerte</td><td>Puerta de entrada natural</td></tr>
+        <tr><td><b>Chile / Perú / Ecuador</b></td><td>Mercados medianos y estables</td><td>Segunda ola</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">
+      <b>Honesto sobre los retos.</b> <b>Poder adquisitivo</b>: el ARPU baja, probablemente haga falta un tramo &lt;29 € que presiona el margen. <b>Pagos</b>: tarjeta no es universal — sin pasarela local (Mercado Pago, OXXO, PSE) no se cobra. <b>Volatilidad</b> (Argentina, Venezuela): inflación y cambio complican precio y cobro. <b>Soporte y confianza</b>: vender a distancia a un micronegocio exige prueba social local.
+    </div>
+    <div class="callout"><b>Veredicto.</b> LatAm es la gran palanca de <b>volumen</b> a medio plazo, no el beachhead. El arranque sensato es hostelería en Mallorca/España (pago y soporte fáciles); LatAm entra cuando producto y pasarela local estén listos.</div>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="n">5</span> Tamaño de mercado</h2>
+    <div class="note">Todas las cifras de esta sección son <b>orientativas</b>. Las de España son órdenes de magnitud de fuentes públicas (INE / Hostelería de España, ~2024-25); las globales y de LatAm son <b>estimación</b> de rango. El TAM/SAM/SOM es un <b>modelo ilustrativo</b>, no una previsión.</div>
+
+    <h3>Universo de negocios</h3>
+    <div class="cards">
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~300.000</div><div class="lbl">establecimientos de hostelería en España</div></div>
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~3,3 M</div><div class="lbl">empresas en España (casi todas micro)</div></div>
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~3,4 M</div><div class="lbl">autónomos en España</div></div>
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~17.000</div><div class="lbl">hostelería en Baleares (beachhead)</div></div>
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~450–500 M</div><div class="lbl">hispanohablantes en el mundo</div></div>
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~5–10 M</div><div class="lbl">micronegocios LatAm direccionables</div></div>
+    </div>
+
+    <h3>Mercados de software (global)</h3>
+    <div class="cards">
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~15–25 mil M $</div><div class="lbl">social media management software (~2025-26, creciendo doble dígito)</div></div>
+      <div class="card"><span class="est tag est">estim.</span><div class="big">~5–7 mil M $</div><div class="lbl">gestión de reputación / reseñas online</div></div>
+    </div>
+    <p class="lead" style="font-size:14px">Las cifras exactas varían mucho según la casa de análisis (y WebSearch estaba agotado para cruzarlas): se dan como rango honesto, no como dato cerrado.</p>
+
+    <h3>TAM / SAM / SOM de Chispa</h3>
+    <p><b>Supuesto de precio (ARPU):</b> cartera 29–99 €/mes → blended ~<b>49 €/mes = ~590 €/año</b> en España; ~<b>25 €/mes = ~300 €/año</b> en LatAm por poder adquisitivo. Cálculo simple: <b>negocios × €/mes × 12</b>.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Capa</th><th>Negocios</th><th>€/mes</th><th>Mercado anual</th><th>Qué es</th></tr></thead>
+      <tbody>
+        <tr><td><b>Beachhead — hostelería Baleares</b></td><td>~17.000</td><td>49 €</td><td class="price">~10 M €/año</td><td>donde se empieza</td></tr>
+        <tr><td><b>TAM España — hostelería</b></td><td>~300.000</td><td>49 €</td><td class="price">~176 M €/año</td><td>sector objetivo inicial</td></tr>
+        <tr><td><b>TAM España — pymes locales ampliado</b></td><td>~1,2 M</td><td>49 €</td><td class="price">~700 M €/año</td><td>si sale de hostelería</td></tr>
+        <tr><td><b>TAM LatAm — micronegocios</b></td><td>~5 M</td><td>25 €</td><td class="price">~1.500 M €/año</td><td>palanca de volumen</td></tr>
+        <tr style="background:rgba(139,92,246,.1)"><td><b>TAM total (ES + LatAm hispana)</b></td><td>—</td><td>—</td><td class="price">~2.000–2.500 M €/año</td><td>techo teórico 🟡</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cards">
+      <div class="card"><div class="lbl">SAM — servible hoy (hostelería ES + pyme local en español, pago fácil)</div><div class="big" style="font-size:24px;margin-top:8px">~150–250 M €/año</div></div>
+      <div class="card"><div class="lbl">SOM 3-5 años (captura 1–2 %): 2 % de 300.000 = 6.000 clientes</div><div class="big" style="font-size:24px;margin-top:8px">~3,5 M € ARR</div></div>
+      <div class="card"><div class="lbl">SOM ampliado con tracción LatAm (objetivo 5 años)</div><div class="big" style="font-size:24px;margin-top:8px">~5–10 M € ARR</div></div>
+    </div>
+    <div class="callout">En una línea: el <b>techo</b> son miles de millones (todo el mundo hispanohablante local), lo <b>servible hoy</b> son centenares de millones (hostelería y pyme española), y lo <b>alcanzable</b> a 3-5 años es del orden de unos pocos millones de € de ingreso recurrente, empezando por hostelería en España. Todo esto es modelo, no promesa.</div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="n">6</span> Conclusión y riesgos</h2>
+    <p>Hay un cuadrante vacío: <b>todo-en-uno (contenido + publicación + reseñas) · español nativo · de hostelería · barato (29–99 €) · que se encarga solo</b>. Hoy ese negocio obliga a elegir entre:</p>
+    <ul class="clean">
+      <li>una <b>agencia humana</b> (300–1.500 €/mes, no escala),</li>
+      <li><b>dos SaaS genéricos</b> en inglés (Predis/Ocoya + Localo/MARA, ~60–130 €/mes, trabajo manual del dueño), o</li>
+      <li>una <b>suite enterprise</b> (Birdeye/Podium: cara, multi-local, inglés, precio opaco).</li>
+    </ul>
+    <p>Ninguno sirve al bar de Mallorca o al restaurante de Bogotá que quiere "que alguien se encargue de mis redes y mis reseñas por poco dinero y en mi idioma". <b>Ese es el hueco real de Chispa</b>, y es grande: hostelería española infraatendida como beachhead, y el mundo hispanohablante (vía WhatsApp y precio bajo) como volumen.</p>
+
+    <h3>4 riesgos honestos</h3>
+    <div class="riskgrid">
+      <div class="risk"><h4>1 · La competencia barata ya existe</h4><p>Predis/Ocoya (24–29 $) ya publican en español; si añaden reseñas y plantillas de hostelería, el foso se estrecha. La ventaja debe ser "se encarga solo" + verticalización + idioma + soporte local, no solo el precio.</p></div>
+      <div class="risk"><h4>2 · Los gigantes podrían bajar</h4><p>Birdeye/Podium tienen músculo; un plan self-service barato en español cambiaría el tablero. Poco probable a corto, posible a medio.</p></div>
+      <div class="risk"><h4>3 · LatAm es difícil de monetizar</h4><p>Poder adquisitivo bajo + pagos sin tarjeta + volatilidad. Sin pasarela local y ARPU ajustado, el volumen no se convierte en ingreso.</p></div>
+      <div class="risk"><h4>4 · El cuello de botella es la distribución</h4><p>Vender a cientos de miles de micronegocios de uno en uno es caro (CAC alto, ticket bajo). Sin canal —boca a boca de hostelería, asociaciones, integraciones con reservas/TPV— el gran TAM se queda en papel.</p></div>
+    </div>
+  </section>
+
+  <!-- fuentes -->
+  <section id="fuentes">
+    <h2><span class="n">✦</span> Fuentes y estimaciones</h2>
+    <h3>Confirmado por WebFetch a la web oficial (7/10/2026)</h3>
+    <ul class="clean srcbox">
+      <li><b>Birdeye</b> — <code>birdeye.com/pricing</code> — producto y "precio por presupuesto" confirmados; rango €/mes estimado.</li>
+      <li><b>Podium</b> — <code>podium.com/pricing</code> — producto y "precio por ventas" confirmados; rango €/mes estimado.</li>
+      <li><b>MARA AI</b> — <code>mara-solutions.com/pricing</code> — precios 70/130/210 € por propiedad/mes confirmados.</li>
+      <li><b>Localo</b> — <code>localo.com/pricing</code> — precios 39 $/149 $ y soporte de español confirmados.</li>
+      <li><b>Predis.ai</b> — <code>predis.ai/pricing</code> — precios 24/55/212 $ y 18+ idiomas confirmados.</li>
+      <li><b>Ocoya</b> — <code>ocoya.com/pricing</code> — precios 29/79/199 $ confirmados; español no confirmado en la página.</li>
+    </ul>
+    <h3>No verificable en esta pasada (403 / dominio no resuelto) — desde conocimiento, estimación</h3>
+    <ul class="clean srcbox">
+      <li><b>CoverManager</b> — <code>covermanager.com/en/prices</code> — HTTP 403. Precio ~89 €/mes = estimación.</li>
+      <li><b>TheFork / ElTenedor</b> — <code>thefork.com/manager</code>, <code>thefork.es</code> — HTTP 403. Comisión ~2 €/comensal = estimación.</li>
+      <li><b>Guestn</b> — dominio no resuelto. Todo = estimación.</li>
+      <li><b>Reputation</b> — no consultado; descripción y precio enterprise = estimación.</li>
+    </ul>
+    <h3>Estimación / conocimiento (corte enero 2026), sin verificar en esta sesión</h3>
+    <ul class="clean srcbox">
+      <li>Toda la sección 5: establecimientos de hostelería ES (~300.000), empresas/autónomos (~3,3–3,4 M), mercados globales de social media management (~15–25 mil M $) y reputación (~5–7 mil M $), universo LatAm.</li>
+      <li>El TAM/SAM/SOM es un modelo ilustrativo con los supuestos de precio y captura indicados. No es una previsión.</li>
+      <li>WebSearch estaba <b>agotado</b>: no se cruzó con informes de analistas (Statista, Grand View…). Las cifras globales se dan como rango honesto.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Chispa · Solers — Estudio de competencia (mi parte: hostelería, reseñas, España, Latinoamérica, tamaño de mercado) · 7 de octubre de 2026 · Cifras marcadas como estimación donde no se han podido confirmar.
+  </footer>
+
+</div>
+</body>
+</html>
