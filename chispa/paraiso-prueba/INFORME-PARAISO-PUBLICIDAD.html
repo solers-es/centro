@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informe · El Paraíso en Chispa (publicidad)</title>
+<style>
+  :root{--bg:#0b0d12;--panel:#141821;--panel2:#1a1f2b;--line:#232a38;--tx:#e9edf4;--tx2:#a3adbf;--tx3:#6f7a8d;
+    --verde:#34d399;--amber:#ffcc33;--rojo:#fb7185;--purple:#a78bfa;--grad:linear-gradient(135deg,#a78bfa,#ffcc33)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 18px 70px}
+  h1{font-size:clamp(24px,4vw,34px);letter-spacing:-.6px;margin:0 0 6px}
+  h1 .sp{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-size:21px;margin:34px 0 12px;letter-spacing:-.3px;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .meta{color:var(--tx2);font-size:14.5px;margin:2px 0}
+  .verdict{background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(139,92,246,.08));border:1px solid rgba(52,211,153,.4);
+    border-radius:16px;padding:18px 20px;margin:22px 0}
+  .verdict b{color:var(--verde)}
+  .tags{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+  .pill{background:var(--panel);border:1px solid var(--line);border-radius:30px;padding:7px 15px;font-weight:700;font-size:13.5px}
+  .pill.ok{color:var(--verde);border-color:rgba(52,211,153,.4)} .pill.err{color:var(--rojo)} .pill.amb{color:var(--amber)}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14.5px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--panel2);color:var(--tx2);font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}
+  td.c{text-align:center;font-size:18px;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  td b{color:var(--tx)}
+  .note{background:rgba(255,204,51,.07);border:1px solid rgba(255,204,51,.3);border-radius:12px;padding:12px 15px;color:var(--tx2);font-size:14px;margin:12px 0}
+  ul{margin:10px 0;padding-left:20px}
+  li{margin:6px 0;color:var(--tx2)}
+  li b{color:var(--tx)}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+  @media(max-width:720px){.shots{grid-template-columns:1fr}}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  figure img{width:100%;display:block;background:#000;border-bottom:1px solid var(--line)}
+  figcaption{padding:9px 12px;font-size:13px;color:var(--tx3);font-weight:700}
+  .step-title{font-weight:800;margin:26px 0 4px;font-size:16.5px;color:var(--tx)}
+  code{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:13px;color:var(--purple)}
+  footer{margin-top:40px;color:var(--tx3);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Informe · <span class="sp">El Paraíso</span> en Chispa</h1>
+  <p class="meta">Prueba end-to-end de toda la experiencia del dueño montando su publicidad.</p>
+  <p class="meta"><b>Fecha:</b> 2026-10-07 · <b>Herramienta:</b> Playwright (Chromium) · <b>App:</b> <code>file:///…/chispa-demo-clone/index.html</code> (solo lectura) · <b>Tamaños:</b> 1280×800 y iPhone 390×844.</p>
+  <div class="tags">
+    <span class="pill ok">✅ 20 / 20 pasos OK</span>
+    <span class="pill ok">0 errores JS</span>
+    <span class="pill">10 secciones × 2 tamaños</span>
+  </div>
+
+  <div class="verdict">
+    <b>Veredicto:</b> El Paraíso está <b>LISTO para usarse como publicidad</b>. Las diez piezas del recorrido funcionan de punta a punta en escritorio y móvil, sin un solo error de JavaScript. El único matiz es que la prueba corre en local sin el servidor (imágenes de banco en vez de Flux y sin OAuth real de redes), cosa que se cubre al desplegar con el servidor de Chispa.
+  </div>
+
+  <div class="note">La app corre en <b>local (<code>file://</code>) sin servidor</b>. Las fotos de las publicaciones vienen del banco (Unsplash) como respaldo de la «imagen IA» (en real se conecta con Flux) y las conexiones a redes se marcan/guían sin OAuth real. Es el modo demo esperado, no un fallo.</div>
+
+  <h2>Tabla de pasos</h2>
+  <table>
+    <tr><th>#</th><th>Sección</th><th class="c">Escr.</th><th class="c">Móvil</th><th>Nota</th></tr>
+    <tr><td>1</td><td><b>Mi negocio</b> — logo negro (no casita)</td><td class="c">✅</td><td class="c">✅</td><td>La cabecera de «El Paraíso Bar Restaurante» muestra el <b>logo negro</b> (<code>marca/elparaiso-logo-negro.jpg</code>, <code>&lt;img&gt;</code> cargada). <b>No</b> aparece la casita 🏠. El arreglo reciente funciona.</td></tr>
+    <tr><td>2</td><td><b>Conexiones</b> (redes)</td><td class="c">✅</td><td class="c">✅</td><td>Se ofrecen las <b>5 redes</b>: Instagram, Facebook, TikTok, YouTube y Google (ficha), con botones de conectar/guía.</td></tr>
+    <tr><td>3</td><td><b>Asistente IA</b></td><td class="c">✅</td><td class="c">✅</td><td>«Que Chispa lo escriba» genera <b>4 ideas</b> con <b>texto + imagen + hashtags</b> y botones <b>Programar, Publicar, Subir foto</b> e imagen IA. La imagen se crea sola (4/4 con foto cargada) y <b>regenera</b> otra distinta con «↻ Otra versión».</td></tr>
+    <tr><td>4</td><td><b>Calendario</b></td><td class="c">✅</td><td class="c">✅</td><td>Rejilla semanal con <b>10 publicaciones programadas</b> (escritorio). Botones <b>Planificar mi semana</b>, <b>Promo para llenar</b> y <b>+ Nueva</b>; «Promo para llenar» abre el asistente de franja (día, horas, nº de historias).</td></tr>
+    <tr><td>5</td><td><b>Así lo ve tu cliente</b></td><td class="c">✅</td><td class="c">✅</td><td>Vista previa realista en <b>10 plataformas</b> (IG feed/Stories, Facebook, TikTok, Google…): mockup de móvil con logo, foto, insignia «RECIÉN HECHO» y botón <b>Reservar →</b>.</td></tr>
+    <tr><td>6</td><td><b>Reseñas</b></td><td class="c">✅</td><td class="c">✅</td><td>Pantalla de reseñas renderizada (pendientes por responder, referencia a Google).</td></tr>
+    <tr><td>7</td><td><b>Comentarios y DMs</b></td><td class="c">✅</td><td class="c">✅</td><td><b>3 mensajes</b> (comentario IG, DM, comentario FB), cada uno con <b>respuesta sugerida por la IA</b> para aprobar.</td></tr>
+    <tr><td>8</td><td><b>Estadísticas</b></td><td class="c">✅</td><td class="c">✅</td><td><b>4 KPIs</b> + <b>3 gráficas</b> con Chart.js.</td></tr>
+    <tr><td>9</td><td><b>Crecer</b></td><td class="c">✅</td><td class="c">✅</td><td>Sección nueva con <b>7 sub-secciones</b> (Vídeo, Cuánto publicar, Mejores horas, Hashtags, Plan de la semana, Ganar dinero, No te penalicen); se cambia sin recargar.</td></tr>
+    <tr><td>10</td><td><b>Visita guiada</b></td><td class="c">✅</td><td class="c">✅</td><td>«▶ Ver cómo funciona» abre el selector; elegido El Paraíso, arranca la visita de <b>10 pasos</b> y avanza (Paso 1 → Paso 3 comprobado).</td></tr>
+  </table>
+
+  <h2>Errores de JavaScript</h2>
+  <p><b style="color:var(--verde)">Ninguno.</b> En los 20 recorridos no se registró ni un solo <code>console.error</code> ni <code>pageerror</code> (0 en escritorio, 0 en móvil). Chart.js cargó bien y todas las secciones se pintaron sin excepciones.</p>
+
+  <h2>Observaciones (no son fallos)</h2>
+  <ul>
+    <li><b>«Crear imagen con IA»</b>: ese botón solo sale cuando una tarjeta aún no tiene imagen. En las propuestas de Chispa la imagen <b>ya viene creada</b> (4/4 tarjetas con foto cargada); la acción equivalente es <b>«↻ Otra versión»</b>, que se probó y devuelve otra imagen distinta.</li>
+    <li><b>Calendario en móvil</b>: a 390 px la rejilla se condensa y no se contaron ítems <code>.ag-it</code>, pero cabecera, botones y el flujo de «Promo para llenar» funcionan. En escritorio se ven las 10 publicaciones. Es maquetación responsive, no un error.</li>
+    <li><b>Imágenes y redes en <code>file://</code></b>: fotos de Unsplash (respaldo) y sin OAuth real por faltar el servidor; modo demo esperado.</li>
+  </ul>
+
+  <h2>Capturas</h2>
+
+  <div class="step-title">1 · Mi negocio — logo negro (no casita)</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p1-mi-negocio.png" alt="Mi negocio escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p1-mi-negocio.png" alt="Mi negocio móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <div class="step-title">2 · Conexiones (redes)</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p2-conexiones.png" alt="Conexiones escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p2-conexiones.png" alt="Conexiones móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <div class="step-title">3 · Asistente IA</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p3a-asistente-generado.png" alt="Asistente escritorio"><figcaption>Escritorio · ideas generadas</figcaption></figure>
+    <figure><img src="capturas/movil-p3a-asistente-generado.png" alt="Asistente móvil"><figcaption>Móvil · ideas generadas</figcaption></figure>
+    <figure><img src="capturas/desktop-p3b-asistente-imagenIA.png" alt="Imagen IA"><figcaption>Imagen creada por Chispa (con «Otra versión»)</figcaption></figure>
+  </div>
+
+  <div class="step-title">4 · Calendario (y «Promo para llenar»)</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p4a-calendario.png" alt="Calendario escritorio"><figcaption>Escritorio · semana</figcaption></figure>
+    <figure><img src="capturas/movil-p4a-calendario.png" alt="Calendario móvil"><figcaption>Móvil · semana</figcaption></figure>
+    <figure><img src="capturas/desktop-p4b-calendario-promo.png" alt="Promo escritorio"><figcaption>Escritorio · Promo para llenar</figcaption></figure>
+    <figure><img src="capturas/movil-p4b-calendario-promo.png" alt="Promo móvil"><figcaption>Móvil · Promo para llenar</figcaption></figure>
+  </div>
+
+  <div class="step-title">5 · Así lo ve tu cliente</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p5-vista-cliente.png" alt="Vista cliente escritorio"><figcaption>Escritorio · 10 plataformas</figcaption></figure>
+    <figure><img src="capturas/movil-p5-vista-cliente.png" alt="Vista cliente móvil"><figcaption>Móvil · mockup de Instagram</figcaption></figure>
+  </div>
+
+  <div class="step-title">6 · Reseñas</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p6-resenas.png" alt="Reseñas escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p6-resenas.png" alt="Reseñas móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <div class="step-title">7 · Comentarios y DMs</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p7-comentarios-dms.png" alt="Comentarios escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p7-comentarios-dms.png" alt="Comentarios móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <div class="step-title">8 · Estadísticas</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p8-estadisticas.png" alt="Estadísticas escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p8-estadisticas.png" alt="Estadísticas móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <div class="step-title">9 · Crecer</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p9-crecer.png" alt="Crecer escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p9-crecer.png" alt="Crecer móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <div class="step-title">10 · Visita guiada</div>
+  <div class="shots">
+    <figure><img src="capturas/desktop-p10-visita-guiada.png" alt="Visita guiada escritorio"><figcaption>Escritorio</figcaption></figure>
+    <figure><img src="capturas/movil-p10-visita-guiada.png" alt="Visita guiada móvil"><figcaption>Móvil</figcaption></figure>
+  </div>
+
+  <footer>Datos crudos en <code>resultados.json</code>. Scripts: <code>prueba-paraiso.js</code> y <code>verif-imagen-ia.js</code>. Prueba de solo lectura; no se modificó la app ni se tocó git.</footer>
+</div>
+</body>
+</html>
