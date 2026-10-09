@@ -10,7 +10,7 @@
 > - ☕ **Café incluido** con tu desayuno, de lunes a viernes.
 > - 📱 Ofertas de mañana por WhatsApp.
 
-> ⚠️ Antes de publicar: cambia `wa.me/34600000000` por el número real del local
+> ⚠️ Antes de publicar: cambia `wa.me/34689980202` por el número real del local
 > y revisa el horario si cambia.
 
 ---
