@@ -1,0 +1,171 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>solers · Tickets</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+ :root{ --sol:#D4622A;--tinta:#241E17;--hueso:#F5F0E7;--carta:#fff;--suave:#8a7f70;--linea:#E3DBCB;
+   --rojo:#D33A2C;--ambar:#D9A21B;--azul:#2563EB;--azul-bg:#E1EAFB;--verde:#19863f;
+   --serif:"Fraunces",Georgia,serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace; color-scheme:light;}
+ *{box-sizing:border-box;margin:0} body{background:var(--hueso);color:var(--tinta);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+ .cnav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px max(16px,env(safe-area-inset-left,0px));background:var(--carta);border-bottom:1px solid var(--linea)}
+ .cnav .marca{font-family:var(--serif);font-weight:600;font-size:16px}.cnav .marca b{color:var(--sol)}
+ .cnav .tabs{display:flex;gap:6px;flex-wrap:wrap} .cnav .t{text-decoration:none;font-size:13px;font-weight:600;color:var(--suave);padding:6px 12px;border-radius:9px;border:1px solid transparent}
+ .cnav .t.on{background:var(--sol);color:#fff} .cnav .t:not(.on):hover{border-color:var(--linea)}
+ main{max-width:1400px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+ h1{font-family:var(--serif);font-size:30px} .sub{color:var(--suave);font-size:14px;margin-top:4px;max-width:78ch}
+ .resumen{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+ .k{background:var(--carta);border:1px solid var(--linea);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+ .k .luz{width:24px;height:24px;border-radius:50%;flex:none} .k b{font-size:28px;font-family:var(--serif);display:block;line-height:1} .k span{font-size:13px;color:var(--suave)}
+ .chips{display:flex;flex-wrap:wrap;gap:6px}
+ .chip{font:600 12.5px var(--sans);border:1px solid var(--linea);background:var(--carta);border-radius:999px;padding:5px 11px;cursor:pointer;color:var(--tinta);display:inline-flex;gap:6px;align-items:center}
+ .chip.on{background:var(--tinta);color:#fff;border-color:var(--tinta)} .chip i{font-style:normal;font-family:var(--mono);font-size:11px;opacity:.8}
+ .tablero{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}
+ .col{background:#EFE8DB;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:9px;min-width:0}
+ .col h2{font-size:15px;display:flex;align-items:center;gap:8px;padding:2px 4px} .col h2 .luz{width:14px;height:14px;border-radius:50%} .col h2 i{font-style:normal;color:var(--suave);font-family:var(--mono);font-size:12px}
+ .lista{display:flex;flex-direction:column;gap:9px}
+ .tk{background:var(--carta);border:1px solid var(--linea);border-left:5px solid var(--linea);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:5px;min-width:0}
+ .tk .tit{font-weight:600;font-size:14.5px;line-height:1.3;overflow-wrap:anywhere} .tk .det{font-size:13px;color:#4a4035;white-space:pre-wrap;overflow-wrap:anywhere}
+ .tk .meta{font:500 11px var(--mono);color:var(--suave);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+ .urg{background:var(--rojo);color:#fff;border-radius:5px;padding:0 6px} .alta{background:#F6D7C9;color:#8A2E12;border-radius:5px;padding:0 6px} .baja{opacity:.7}
+ .tk .acc{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+ .tk .acc button{font:600 12px var(--sans);border:1px solid var(--linea);background:#fff;border-radius:8px;padding:4px 9px;cursor:pointer;color:var(--tinta)}
+ .tk .acc button.empezar{background:var(--azul);border-color:var(--azul);color:#fff}
+ .tk .trabajando{font-size:12.5px;color:var(--azul);background:var(--azul-bg);border-radius:8px;padding:5px 8px}
+ .tk a{color:var(--sol)}
+ .vacio{color:var(--suave);font-size:13px;text-align:center;padding:16px}
+ details.nuevo{background:var(--carta);border:1px solid var(--linea);border-radius:14px;padding:12px 16px}
+ details.nuevo summary{cursor:pointer;font-weight:600;color:var(--sol)}
+ form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+ form .ancho{grid-column:1/-1} label{font-size:12px;color:var(--suave);display:flex;flex-direction:column;gap:4px}
+ input,select,textarea{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--linea);border-radius:9px;background:#fff;color:var(--tinta);min-width:0}
+ form button{font:600 14px var(--sans);background:var(--sol);color:#fff;border:0;border-radius:10px;padding:10px 16px;cursor:pointer;justify-self:start}
+ .coord{background:var(--carta);border:1px solid var(--linea);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+ .coord h2{font-size:17px;font-family:var(--serif)} .coord .nota{font-size:12.5px;color:var(--suave)}
+ .msg{border:1px solid var(--linea);border-radius:12px;padding:9px 12px;display:flex;flex-direction:column;gap:5px;min-width:0}
+ .msg .de{font:600 10.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--sol);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+ .msg .de .p{background:#EFE8DB;color:var(--tinta);border-radius:5px;padding:0 6px;text-transform:none;letter-spacing:0}
+ .msg .tx{font-size:13.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+ .msg button{align-self:flex-start;font:600 12px var(--sans);border:1px solid var(--linea);background:#fff;border-radius:8px;padding:4px 9px;cursor:pointer;color:var(--tinta)}
+ .api{font-size:12.5px;color:var(--suave)} .api code{font-family:var(--mono);background:#EFE8DB;border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+ @media (max-width:1100px){ .tablero{grid-template-columns:repeat(2,minmax(0,1fr))} }
+ @media (max-width:700px){ .tablero{grid-template-columns:minmax(0,1fr)} form{grid-template-columns:repeat(2,minmax(0,1fr))} .resumen{grid-template-columns:repeat(2,minmax(0,1fr))} }
+</style></head><body>
+<nav class="cnav"><span class="marca"><b>solers</b> · Centro</span><span class="tabs"><a href="/arbol" class="t">🌳 Árbol</a><a href="/obra" class="t">🔨 Obra</a><a href="/dinero" class="t">💰 Dinero</a><a href="/chat" class="t">💬 Chat</a><a href="/tickets" class="t on">🎫 Tickets</a></span></nav>
+<main>
+ <div><h1>🎫 Tickets pendientes</h1>
+ <p class="sub">Cada tarea de cada programa, como un semáforo, para ir cerrando ciclos. Pulsa <b>▶ Empezar con Claude</b> y en el Mac se abre un Claude trabajando en ella; al terminar, la marca él solo como <b>🟢 hecha</b>. Lo que se escribe en el chat de coordinación sale abajo, en el espacio de su programa.</p></div>
+ <div class="resumen">
+  <div class="k"><span class="luz" style="background:var(--rojo)"></span><div><b id="n-hacer">–</b><span>Por hacer</span></div></div>
+  <div class="k"><span class="luz" style="background:var(--azul)"></span><div><b id="n-curso">–</b><span>En curso (Claude)</span></div></div>
+  <div class="k"><span class="luz" style="background:var(--ambar)"></span><div><b id="n-revisar">–</b><span>Por revisar</span></div></div>
+  <div class="k"><span class="luz" style="background:var(--verde)"></span><div><b id="n-hecho">–</b><span>Hecho</span></div></div>
+ </div>
+ <div class="chips" id="chips"></div>
+ <details class="nuevo"><summary>➕ Añadir un ticket</summary>
+  <form id="f">
+   <label class="ancho">Qué hay que hacer<input name="titulo" required maxlength="200" placeholder="Ej.: arreglar el botón de reservar en el móvil"></label>
+   <label>Programa<input name="producto" list="productos" placeholder="El Paraíso"></label>
+   <label>Rama o apartado<input name="rama" placeholder="web, carta, PR #12…"></label>
+   <label>Urgencia<select name="prioridad"><option value="urgente">🔴 Urgente</option><option value="alta">Alta</option><option value="normal" selected>Normal</option><option value="baja">Baja</option></select></label>
+   <label>Quién lo hace<input name="quien" placeholder="Claude, Alex, Stalin…"></label>
+   <label class="ancho">Detalle (opcional)<textarea name="detalle" rows="2"></textarea></label>
+   <button type="submit">Guardar ticket</button>
+  </form>
+  <datalist id="productos"></datalist>
+ </details>
+ <div class="tablero">
+  <section class="col"><h2><span class="luz" style="background:var(--rojo)"></span>Por hacer <i id="c-hacer"></i></h2><div class="lista" id="l-hacer"></div></section>
+  <section class="col"><h2><span class="luz" style="background:var(--azul)"></span>En curso <i id="c-curso"></i></h2><div class="lista" id="l-curso"></div></section>
+  <section class="col"><h2><span class="luz" style="background:var(--ambar)"></span>Por revisar <i id="c-revisar"></i></h2><div class="lista" id="l-revisar"></div></section>
+  <section class="col"><h2><span class="luz" style="background:var(--verde)"></span>Hecho <i id="c-hecho"></i></h2><div class="lista" id="l-hecho"></div></section>
+ </div>
+ <section class="coord"><h2 id="coord-tit">📨 Coordinación</h2>
+  <p class="nota">Los mensajes del chat del Centro, repartidos solos por programa según lo que nombran. Si uno es una tarea, «➕ Hacer ticket» la pasa al tablero.</p>
+  <div class="lista" id="coord"></div></section>
+ <p class="api"><b>Para los Claude:</b> leer <code>GET /api/tickets</code> · crear o cambiar <code>POST /api/tickets</code> con <code>{"id":"opcional","producto":"El Paraíso","rama":"web","titulo":"…","estado":"hacer|curso|revisar|hecho","prioridad":"urgente|alta|normal|baja","quien":"…","de":"Claude (portátil)"}</code>. Con el mismo <code>id</code> se actualiza; con <code>"borrar":true</code> se quita. «▶ Empezar» deja <code>estado:"curso"</code> y el vigilante del MacBook abre el Claude.</p>
+</main>
+<script>
+const PRIO={urgente:0,alta:1,normal:2,baja:3};
+const COL={hacer:"var(--rojo)",curso:"var(--azul)",revisar:"var(--ambar)",hecho:"var(--verde)"};
+const ESTADOS=["hacer","curso","revisar","hecho"];
+const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").trim();
+// qué programa nombra cada mensaje (el orden importa: lo más concreto primero)
+const PROGRAMAS=[
+  ["Paraíso Publicidad",/para[ií]so publicidad|publicidad\.elparaiso|paraiso-publicidad/gi],
+  ["El Paraíso web",/para[ií]so web|web de el para[ií]so|el-paraiso-eight|elparaisomallorca\.es/gi],
+  ["Chispa",/chispa/gi],["Brasa",/brasa|universo-bistro|\btpv\b/gi],["Apoteósicas",/apote[oó]sicas|peluquer|sal[oó]n(es)? de belleza/gi],
+  ["Brigada",/brigada|solers-es\/obra/gi],["GestorOS",/gestor ?os|gestoros/gi],["PULSO",/\bpulso\b/gi],["El Sazón",/saz[oó]n/gi],
+  ["Centro",/\bcentro\b|ticket|sem[aá]foro|hetzner/gi],["El Paraíso",/para[ií]so/gi]];
+function programasDe(texto){ let t=String(texto||""); const out=[]; for(const [n,re] of PROGRAMAS){ if(re.test(t)){ out.push(n); t=t.replace(re," "); } re.lastIndex=0; } return out.length?out:["General"]; }
+let todos=[], mensajes=[], prod="";
+try{ prod=localStorage.getItem("tk-prod")||""; }catch(e){}
+function quien(){ try{ return localStorage.getItem("tk-quien")||"web"; }catch(e){ return "web"; } }
+async function enviar(datos){ const r=await fetch("/api/tickets",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...datos,de:quien()})}); if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error(j.error||r.status); } }
+function el(tag,cls,txt){ const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+function fecha(iso){ return iso?new Date(iso).toLocaleString("es-ES",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):""; }
+function tarjeta(t){
+  const d=el("div","tk"); d.style.borderLeftColor=COL[t.estado]||COL.hacer;
+  d.appendChild(el("div","tit",t.titulo));
+  if(t.detalle) d.appendChild(el("div","det",t.detalle));
+  if(t.enlace){ const a=el("a",null,"↗ abrir"); a.href=t.enlace; a.target="_blank"; a.rel="noreferrer"; a.style.fontSize="13px"; d.appendChild(a); }
+  const m=el("div","meta");
+  if(t.prioridad==="urgente") m.appendChild(el("span","urg","URGENTE")); else if(t.prioridad==="alta") m.appendChild(el("span","alta","ALTA")); else if(t.prioridad==="baja") m.appendChild(el("span","baja","baja"));
+  m.appendChild(el("span",null,[t.producto,t.rama].filter(Boolean).join(" · ")||"general"));
+  if(t.quien) m.appendChild(el("span",null,"→ "+t.quien));
+  if(t.actualizado) m.appendChild(el("span",null,fecha(t.actualizado)));
+  d.appendChild(m);
+  if(t.estado==="curso") d.appendChild(el("div","trabajando", (t.lanzado ? "🔵 Claude trabajando desde "+fecha(t.lanzado) : "🔵 Arrancando el Claude en el Mac…")+" · se pondrá 🟢 solo al terminar"));
+  const acc=el("div","acc");
+  const b=(datos,txt,cls)=>{ const x=el("button",cls||null,txt); x.type="button"; x.onclick=()=>{ x.disabled=true; enviar({id:t.id,...datos}).then(cargar).catch(e=>{ x.textContent="No se pudo: "+e.message; }); }; acc.appendChild(x); };
+  if(t.estado==="hacer"){ b({estado:"curso",quien:"Claude (MacBook)",donde:"MacBook-Pro",lanzado:""},"▶ Empezar con Claude","empezar"); b({estado:"revisar"},"🟡 A revisión"); b({estado:"hecho"},"🟢 Hecho"); }
+  if(t.estado==="curso"){ b({estado:"hacer",lanzado:""},"⏹ Parar"); }
+  if(t.estado==="revisar"){ b({estado:"curso",quien:"Claude (MacBook)",donde:"MacBook-Pro",lanzado:""},"▶ Terminar con Claude","empezar"); b({estado:"hecho"},"🟢 Revisado, hecho"); b({estado:"hacer"},"🔴 Falta"); }
+  if(t.estado==="hecho"){ b({estado:"hacer",lanzado:""},"↩ Reabrir"); }
+  d.appendChild(acc);
+  return d;
+}
+function pintar(){
+  const ver=todos.filter(t=>!prod||norm(t.producto)===norm(prod));
+  const orden=(a,b)=>(PRIO[a.prioridad]??2)-(PRIO[b.prioridad]??2)||String(a.creado).localeCompare(String(b.creado));
+  for(const e of ESTADOS){
+    let l=ver.filter(t=>t.estado===e);
+    l = e==="hecho" ? l.sort((a,b)=>String(b.actualizado).localeCompare(String(a.actualizado))) : l.sort(orden);
+    document.getElementById("n-"+e).textContent=l.length; document.getElementById("c-"+e).textContent=l.length;
+    const caja=document.getElementById("l-"+e); caja.textContent="";
+    if(!l.length) caja.appendChild(el("div","vacio",e==="hecho"?"Aún nada cerrado.":"Nada aquí 🎉"));
+    l.forEach(t=>caja.appendChild(tarjeta(t)));
+  }
+  // chips por programa: tickets abiertos + mensajes de coordinación
+  const prods={}; const sumar=(k)=>(prods[k]=prods[k]||{a:0,u:0});
+  todos.forEach(t=>{ const p=sumar(t.producto||"general"); if(t.estado!=="hecho"){ p.a++; if(t.prioridad==="urgente") p.u++; } });
+  mensajes.forEach(m=>m.programas.forEach(sumar));
+  const ch=document.getElementById("chips"); ch.textContent="";
+  const chip=(nombre,txt,cuenta)=>{ const c=el("button","chip"+(norm(prod)===norm(nombre)?" on":""),txt); c.type="button"; if(cuenta!=null) c.appendChild(el("i",null,cuenta)); c.onclick=()=>{ prod=nombre; try{ localStorage.setItem("tk-prod",prod); }catch(e){} pintar(); }; ch.appendChild(c); };
+  chip("","Todos",todos.filter(t=>t.estado!=="hecho").length);
+  Object.keys(prods).sort((a,b)=>prods[b].u-prods[a].u||prods[b].a-prods[a].a).forEach(k=>chip(k,(prods[k].u?"🔴 ":"")+k,prods[k].a));
+  const dl=document.getElementById("productos"); dl.textContent=""; Object.keys(prods).forEach(k=>{ const o=document.createElement("option"); o.value=k; dl.appendChild(o); });
+  // coordinación del programa elegido (o todo)
+  document.getElementById("coord-tit").textContent="📨 Coordinación"+(prod?" · "+prod:" · todos los programas");
+  const cj=document.getElementById("coord"); cj.textContent="";
+  const ms=mensajes.filter(m=>!prod||m.programas.some(p=>norm(p)===norm(prod))).slice(-40).reverse();
+  if(!ms.length) cj.appendChild(el("div","vacio","Sin mensajes de coordinación de este programa."));
+  ms.forEach(m=>{
+    const d=el("div","msg"); const de=el("div","de"); de.appendChild(el("span",null,(m.de||"?")+" · "+fecha(m.ts)));
+    m.programas.forEach(p=>de.appendChild(el("span","p",p))); d.appendChild(de);
+    d.appendChild(el("div","tx",m.texto));
+    const b=el("button",null,"➕ Hacer ticket"); b.type="button";
+    b.onclick=()=>{ b.disabled=true; enviar({producto:(prod||m.programas[0]==="General"?prod||"":m.programas[0]),rama:"coordinación",titulo:String(m.texto).replace(/\s+/g," ").slice(0,150),detalle:"Del chat de coordinación ("+(m.de||"?")+", "+fecha(m.ts)+"):\n"+m.texto,estado:"hacer",prioridad:"normal"}).then(()=>{ b.textContent="✅ Hecho ticket"; cargar(); }).catch(e=>{ b.textContent="No se pudo: "+e.message; }); };
+    d.appendChild(b); cj.appendChild(d);
+  });
+}
+async function cargar(){
+  try{ const r=await fetch("/api/tickets",{cache:"no-store"}); todos=(await r.json()).tickets||[]; }catch(e){}
+  try{ const r=await fetch("/api/chat",{cache:"no-store"}); mensajes=((await r.json()).mensajes||[]).map(m=>({...m,programas:programasDe(m.texto)})); }catch(e){}
+  pintar();
+}
+document.getElementById("f").addEventListener("submit",async ev=>{
+  ev.preventDefault(); const f=ev.target; const d=Object.fromEntries(new FormData(f).entries());
+  try{ await enviar({...d,estado:"hacer"}); f.reset(); cargar(); }catch(e){ f.querySelector("button").textContent="No se guardó: "+e.message; }
+});
+cargar(); setInterval(cargar,20000);
+</script></body></html>

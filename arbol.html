@@ -1,0 +1,178 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#D4622A"><link rel="apple-touch-icon" href="/icono-192.png">
+<title>solers · Centro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --sol:#D4622A; --tinta:#241E17; --hueso:#F5F0E7; --carta:#FFFFFF;
+    --suave:#8a7f70; --linea:#D9CFBC; --linea2:#CDBFA6;
+    --verde:#19863f; --verde-bg:#E6F3EA; --ambar:#C07E12; --ambar-bg:#FBF0D6; --azul:#2563EB; --azul-bg:#E1EAFB;
+    --serif:"Fraunces",Georgia,serif; --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{ background:var(--hueso); color:var(--tinta); font-family:var(--sans); -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; }
+  .cnav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;flex:none;
+    padding:10px max(16px,env(safe-area-inset-left,0px)) 10px max(16px,env(safe-area-inset-right,0px));
+    background:var(--carta);border-bottom:1px solid var(--linea)}
+  .cnav .marca{font-family:var(--serif);font-weight:600;font-size:16px}.cnav .marca b{color:var(--sol)}
+  .cnav .tabs{display:flex;gap:6px}
+  .cnav .t{text-decoration:none;font-size:13px;font-weight:600;color:var(--suave);padding:6px 12px;border-radius:9px;border:1px solid transparent}
+  .cnav .t.on{background:var(--sol);color:#fff} .cnav .t:not(.on):hover{border-color:var(--linea)}
+
+  .lienzo{ flex:1; overflow:auto; }
+  #arbol{ position:relative; display:flex; align-items:center; min-height:100%; width:max-content; padding:28px 40vw 28px 24px; }
+  #arbol > .ramas{ position:absolute; left:0; top:0; pointer-events:none; z-index:0; overflow:visible; }
+  #arbol > .crumb, #arbol > .sep, #arbol > .focus, #arbol > .kids{ position:relative; z-index:1; }
+  .ramas path{ fill:none; stroke:var(--linea2); stroke-width:2; stroke-linecap:round; }
+  .crumb{ display:inline-flex; align-items:center; gap:7px; background:var(--carta); border:1px solid var(--linea);
+    border-radius:11px; padding:7px 11px; cursor:pointer; white-space:nowrap; font-size:13px; opacity:.7; flex:none; transition:opacity .12s,border-color .12s; }
+  .crumb:hover{ opacity:1; border-color:var(--sol); } .crumb.raiz{ background:var(--sol); color:#fff; border-color:var(--sol); opacity:.85; }
+  .sep{ color:var(--linea2); margin:0 7px; font-size:17px; flex:none; }
+  .focus{ display:inline-flex; align-items:center; gap:10px; background:var(--carta); border:2px solid var(--sol);
+    border-radius:16px; padding:13px 17px; font-size:17px; white-space:nowrap; flex:none; box-shadow:0 6px 22px rgba(212,98,42,.16); }
+  .focus.raiz{ background:var(--sol); color:#fff; } .focus .nm{ font-family:var(--serif); font-weight:600; }
+  .kids{ display:flex; flex-direction:column; gap:11px; margin-left:34px; padding-left:30px; position:relative; flex:none; }
+  .kids > .branch{ position:relative; display:flex; }
+  .card{ position:relative; display:inline-flex; align-items:center; gap:9px; background:var(--carta);
+    border:1px solid var(--linea); border-radius:12px; padding:10px 13px; white-space:nowrap; font-size:14px;
+    box-shadow:0 1px 2px rgba(36,30,23,.05); transition:border-color .12s, box-shadow .12s, transform .05s; }
+  .card.puede{ cursor:pointer; } .card.puede:hover{ border-color:var(--sol); box-shadow:0 2px 12px rgba(36,30,23,.1); }
+  .card.puede:active{ transform:translateY(1px); } .card:focus-visible{ outline:2px solid var(--sol); outline-offset:2px; }
+  .card.apunte{ background:transparent; border-style:dashed; box-shadow:none; font-size:13px; }
+  .dot{ width:9px; height:9px; border-radius:50%; flex:none; } .d-ok{ background:var(--verde); box-shadow:0 0 0 3px var(--verde-bg); } .d-warn{ background:var(--ambar); box-shadow:0 0 0 3px var(--ambar-bg); } .d-test{ background:var(--azul); box-shadow:0 0 0 3px var(--azul-bg); }
+  .nm{ font-weight:600; } .nota{ color:var(--suave); font-size:12px; } .apunte .nm{ font-weight:500; }
+  .et{ font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--suave); } .chev{ color:var(--sol); font-weight:700; margin-left:2px; }
+  .entrar{ font-size:13px; text-decoration:none; color:var(--sol); font-weight:600; border:1px solid var(--linea); border-radius:7px; padding:2px 8px; margin-left:2px; flex:none; }
+  .focus .entrar{ border-color:rgba(255,255,255,.5); color:#fff; } .entrar:hover{ background:var(--sol); color:#fff; border-color:var(--sol); }
+  footer{ flex:none; padding:10px max(16px,env(safe-area-inset-left,0px)); border-top:1px solid var(--linea); font-family:var(--mono); font-size:11px; color:var(--suave); text-align:center; }
+</style></head><body>
+<nav class="cnav"><span class="marca"><b>solers</b> · Centro</span>
+  <span class="tabs"><a href="/arbol" class="t on">🌳 Árbol</a><a href="/obra" class="t">🔨 Obra</a><a href="/dinero" class="t">💰 Dinero</a><a href="/chat" class="t">💬 Chat</a><a href="/paraiso" class="t">🍽️ El Paraíso</a><button id="instalar" class="t" hidden style="background:var(--verde);color:#fff;border:0;cursor:pointer;font:inherit">📲 Instalar app</button></span></nav>
+<div class="lienzo"><div id="arbol"></div></div>
+<footer><b>🟢 vivo</b> · <b>🔵 listo para probar</b> · <b>🟠 en construcción / pendiente</b> &nbsp;—&nbsp; entra en una rama y el resto desaparece · toca el rastro para volver · ↗ entra en la app</footer>
+<script>
+const DATA = {
+  n:"solers", tipo:"raiz", hijos:[
+    { n:"Productos", tipo:"grupo", hijos:[
+      { n:"Brasa", est:"ok", nota:"TPV · El Paraíso", url:"https://universo-bistro.solers.es", solers:"/e/brasa", hijos:[
+        {n:"Vivo en Hetzner", et:"estado", est:"ok"}, {n:"base y Plus (Plus = +30-50 €/mes)", et:"ediciones"}, {n:"Probar el botón del .exe", et:"siguiente"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"GestorOS", est:"ok", nota:"VeriFactu · vs a3", url:"https://gestoros.solers.es", solers:"/e/gestoros", hijos:[
+        {n:"Vivo en Hetzner", et:"estado", est:"ok"}, {n:"Puerta del autónomo + fusionar PRs", et:"siguiente"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Chispa", est:"warn", nota:"marketing y redes", url:"https://solers-es.github.io/chispa-demo/", hijos:[
+        {n:"Pendiente: falta decidir su base de datos", et:"estado", est:"warn"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Brigada", est:"ok", nota:"construcción y reformas", url:"https://brigada.solers.es", solers:"/e/brigada", hijos:[
+        {n:"Vivo en Hetzner", et:"estado", est:"ok"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"RUTA", est:"warn", nota:"reparto de hielo (stand-by, verano)", hijos:[
+        {n:"Stand-by estacional (invierno)", et:"estado", est:"warn"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"PULSO", est:"ok", nota:"entradas de discoteca", url:"https://pulso.solers.es", solers:"/e/pulso", hijos:[
+        {n:"Vivo en Hetzner", et:"estado", est:"ok"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Apoteósicas", est:"ok", nota:"salones de estética", url:"https://solers.solers.es", solers:"/e/apoteosicas", hijos:[
+        {n:"Vivo en Hetzner", et:"estado", est:"ok"}, {n:"base y Plus", et:"ediciones"}, {n:"¿También como clienta? (valorando)", et:"ojo"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Cabina", est:"warn", nota:"directorio de DJs", url:"https://solers.vercel.app/cabina.html", hijos:[
+        {n:"Construyendo", et:"estado", est:"warn"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Servicios Balears", est:"warn", nota:"oficios en Mallorca", url:"https://solers.vercel.app/servicios-balears.html", hijos:[
+        {n:"Construyendo", et:"estado", est:"warn"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Mudanzas Canadá", est:"warn", nota:"comparador GTA", url:"https://mudanzas-canada-rosy.vercel.app", hijos:[
+        {n:"Construyendo", et:"estado", est:"warn"}, {n:"Alex + Stalin", et:"dueños"} ]},
+    ]},
+    { n:"Clientes", tipo:"grupo", hijos:[
+      { n:"CGB", est:"ok", nota:"mudanzas Montreal", url:"https://multiservicescgb.com", solers:"/e/cgb", hijos:[
+        {n:"Vivo · en Oracle", et:"estado", est:"ok"}, {n:"Precios + ficha de Google", et:"siguiente"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Pa'lante Music Club", est:"warn", nota:"entradas (con PULSO)", url:"https://palantetickets.vercel.app", hijos:[
+        {n:"Cliente", et:"estado", est:"ok"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Ocean", est:"warn", nota:"discoteca (con PULSO)", hijos:[
+        {n:"Cliente", et:"estado", est:"ok"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"Escoleta Ratolins", est:"warn", nota:"guardería de Dayana (Palma)", url:"https://ratolins.vercel.app", hijos:[
+        {n:"Cliente (Dayana)", et:"estado", est:"ok"}, {n:"App de familias + web de la guardería", et:"qué"}, {n:"Alex + Stalin", et:"dueños"} ]},
+    ]},
+    { n:"El Paraíso", tipo:"grupo", hijos:[
+      { n:"El Paraíso web", est:"warn", nota:"web + carta QR", url:"https://el-paraiso-eight.vercel.app", hijos:[
+        {n:"Aún en Vercel", et:"estado", est:"warn"}, {n:"Traerla a Hetzner antes de apagar Vercel", et:"siguiente"}, {n:"Alex + Stalin", et:"dueños"} ]},
+      { n:"El Sazón", est:"warn", nota:"2º restaurante", url:"https://sazon-quisqueya.vercel.app", hijos:[
+        {n:"Construyendo", et:"estado", est:"warn"}, {n:"Alex + Stalin", et:"dueños"} ]},
+    ]},
+    { n:"Centro", tipo:"grupo", hijos:[
+      { n:"Árbol", est:"ok", nota:"esto", url:"/arbol", hijos:[ {n:"Vivo en Hetzner", et:"estado", est:"ok"} ]},
+      { n:"Dinero", est:"ok", nota:"clientes y facturación", url:"/dinero", hijos:[ {n:"Vivo en Hetzner", et:"estado", est:"ok"}, {n:"Conectar Stripe (cuando lo tengáis)", et:"siguiente"} ]},
+      { n:"Servidor Hetzner", est:"ok", nota:"91.99.92.242 · la madre", hijos:[
+        {n:"Alex + Stalin (2 PCs) con acceso", et:"estado", est:"ok"}, {n:"Apagar Vercel del todo", et:"siguiente"} ]},
+    ]},
+    { n:"Parados / archivo", tipo:"grupo", hijos:[
+      { n:"Préstamos", est:"warn", nota:"parado" }, { n:"Jurídico RD", est:"warn", nota:"parado" },
+      { n:"Publicador IG", est:"warn", nota:"parado" }, { n:"Motora Exprés", est:"warn", nota:"parado" },
+      { n:"Clonador white-label", est:"warn", nota:"para archivar" },
+    ]},
+  ]
+};
+const arbol = document.getElementById("arbol");
+let ruta = [DATA];
+function pinta(card, nodo, conEntrar){
+  if(nodo.est){ const d=document.createElement("span"); d.className="dot "+(nodo.est==="ok"?"d-ok":nodo.est==="test"?"d-test":"d-warn"); card.appendChild(d); }
+  if(nodo.et){ const e=document.createElement("span"); e.className="et"; e.textContent=nodo.et; card.appendChild(e); }
+  const nm=document.createElement("span"); nm.className="nm"; nm.textContent=nodo.n; card.appendChild(nm);
+  if(nodo.nota){ const nt=document.createElement("span"); nt.className="nota"; nt.textContent=nodo.nota; card.appendChild(nt); }
+  if(conEntrar && nodo.url){ const a=document.createElement("a"); a.className="entrar"; a.href=nodo.url; if(!nodo.url.startsWith("/")){ a.target="_blank"; a.rel="noreferrer"; } a.textContent="↗ entrar"; a.addEventListener("click",e=>e.stopPropagation()); card.appendChild(a); }
+  if(conEntrar && nodo.solers){ const a=document.createElement("a"); a.className="entrar"; a.href=nodo.solers; a.target="_blank"; a.rel="noreferrer"; a.textContent="🔑 Entrar"; a.addEventListener("click",e=>e.stopPropagation()); card.appendChild(a); }
+}
+function render(centrar){
+  arbol.innerHTML="";
+  for(let i=0;i<ruta.length-1;i++){
+    const c=document.createElement("div"); c.className="crumb "+(ruta[i].tipo==="raiz"?"raiz":""); c.tabIndex=0;
+    pinta(c, ruta[i], false);
+    const idx=i; const ir=()=>{ ruta=ruta.slice(0,idx+1); render(true); };
+    c.addEventListener("click",ir); c.addEventListener("keydown",e=>{ if(e.key==="Enter") ir(); });
+    arbol.appendChild(c);
+    const s=document.createElement("span"); s.className="sep"; s.textContent="›"; arbol.appendChild(s);
+  }
+  const foco=ruta[ruta.length-1];
+  const f=document.createElement("div"); f.className="focus "+(foco.tipo==="raiz"?"raiz":""); pinta(f, foco, true); arbol.appendChild(f);
+  if(foco.hijos && foco.hijos.length){
+    const kids=document.createElement("div"); kids.className="kids";
+    foco.hijos.forEach(h=>{
+      const b=document.createElement("div"); b.className="branch";
+      const card=document.createElement("div");
+      const drill=h.hijos&&h.hijos.length;
+      card.className="card "+(drill?"puede":(h.et?"apunte":""));
+      card.tabIndex=drill?0:-1;
+      pinta(card, h, true);
+      if(drill){
+        const ch=document.createElement("span"); ch.className="chev"; ch.textContent="›"; card.appendChild(ch);
+        const entra=()=>{ ruta.push(h); render(true); };
+        card.addEventListener("click",entra); card.addEventListener("keydown",e=>{ if(e.key==="Enter") entra(); });
+      }
+      b.appendChild(card); kids.appendChild(b);
+    });
+    arbol.appendChild(kids);
+  }
+  dibujarRamas(f);
+  if(centrar){ try{ f.scrollIntoView({inline:"center", block:"center", behavior:"smooth"}); }catch(e){} }
+}
+// líneas curvas (como ramas/brotes) de la rama abierta a cada hijo
+function dibujarRamas(f){
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("class","ramas"); arbol.insertBefore(svg, arbol.firstChild);
+  requestAnimationFrame(()=>{
+    const a=arbol.getBoundingClientRect();
+    svg.setAttribute("width", arbol.scrollWidth); svg.setAttribute("height", arbol.scrollHeight);
+    const fr=f.getBoundingClientRect(); const fx=fr.right-a.left, fy=fr.top+fr.height/2-a.top;
+    arbol.querySelectorAll(".kids > .branch > .card").forEach(card=>{
+      const cr=card.getBoundingClientRect(); const cx=cr.left-a.left, cy=cr.top+cr.height/2-a.top;
+      const dx=Math.max(26,(cx-fx)*0.6);
+      const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+      p.setAttribute("d","M "+fx+" "+fy+" C "+(fx+dx)+" "+fy+", "+(cx-dx)+" "+cy+", "+cx+" "+cy);
+      svg.appendChild(p);
+    });
+  });
+}
+render(false);
+// PWA: instalar el Centro como app
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("/sw.js").catch(()=>{}); }
+let promptInstalar=null;
+const btnInstalar=document.getElementById("instalar");
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); promptInstalar=e; if(btnInstalar) btnInstalar.hidden=false; });
+if(btnInstalar) btnInstalar.addEventListener("click",async()=>{ if(!promptInstalar) return; promptInstalar.prompt(); try{ await promptInstalar.userChoice; }catch(e){} promptInstalar=null; btnInstalar.hidden=true; });
+window.addEventListener("appinstalled",()=>{ if(btnInstalar) btnInstalar.hidden=true; });
+</script></body></html>
